@@ -8,8 +8,8 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>ÜnivAtlas - Üniversite ve Bölüm Tercih Rehberi</title>
-<meta name="description" content="2026 YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.">
-<meta property="og:title" content="ÜnivAtlas - 2026 YKS Tercih Rehberi">
+<meta name="description" content="__YEAR__ YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.">
+<meta property="og:title" content="ÜnivAtlas - __YEAR__ YKS Tercih Rehberi">
 <meta property="og:description" content="Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.png" type="image/png">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
 <script src="data/static/config.js"></script>
-<script>document.querySelector('meta[name="description"]').content=document.querySelector('meta[name="description"]').content.replace('2026',window.YOK_ATLAS_DATA.lastFetchYear)</script>
+<script>document.querySelector('meta[name="description"]').content=document.querySelector('meta[name="description"]').content.replace('__YEAR__',window.YOK_ATLAS_DATA.lastFetchYear)</script>
 <script src="static.js?v=3"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3813680795415350" crossorigin="anonymous"></script>
 <style>
@@ -29,7 +29,14 @@ body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#404041;f
 .topbar{background:linear-gradient(180deg, rgba(237,221,83,1) 0%, rgba(237,221,83,0) 100%);color:#000;padding:5px 14px;position:sticky;top:0;z-index:50}
 .topbar-in{display:flex;align-items:center;gap:10px}
 .topbar-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}
-.topbar h1{font-family:'Quicksand',Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;letter-spacing:.8px;text-align:left;line-height:1.1;color:#404041}@media(max-width:768px){
+.topbar h1{font-family:'Quicksand',Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;letter-spacing:.8px;text-align:left;line-height:1.1;color:#404041}
+.topbar-in{display:flex;align-items:center;justify-content:space-between}
+.privacy-link{font-size:12px;color:#555;text-decoration:none}
+.privacy-link:hover{text-decoration:underline}
+footer{text-align:center;padding:16px 8px;font-size:12px;color:#888;border-top:1px solid #e2e2e2;margin-top:20px}
+footer a{color:#d6454d;text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media(max-width:768px){
   .topbar-logo{width:22px;height:22px}
   .topbar h1{font-size:14px}
 }
@@ -296,6 +303,7 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   <div class="topbar-in">
     <img id="topLogo" class="topbar-logo" src="logo.png" alt="ÜnivAtlas" onerror="this.style.display='none'">
     <h1>ÜnivAtlas</h1>
+    <a href="privacy.html" class="privacy-link">Gizlilik</a>
   </div>
   <button class="reset-btn" type="button" onclick="resetAll()" title="Sıfırla" aria-label="Sıfırla"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
 </div>
@@ -777,7 +785,7 @@ function printHtml(){
   const raw=document.getElementById('tb').innerHTML;
   const tb=raw.replace(/<img[^>]*>/gi,'');
   const header=view==='tercih'?'Tercih Listesi':'Bölüm Listesi';
-  const title='ÜnivAtlas — '+header;
+  const title='ÜnivAtlas - '+header;
   const info=document.getElementById('infoBar').textContent||'';
   let html=`<h2>${title}</h2><h4>${info} • ${new Date().toLocaleString('tr-TR')}</h4>`;
   html+='<table><thead><tr><th class="f" style="width:40px"></th><th>#</th><th class="l">Üniversite</th><th class="l">Bölüm</th><th>Sıralama</th><th>Puan</th><th>Kontenjan</th><th class="f">Koş.</th><th class="f">AKRDT</th><th class="f">TYÇ</th></tr></thead>';
@@ -1011,9 +1019,9 @@ async function openDraw(kod){
 function closeDraw(){
   document.getElementById('dmask').classList.remove('open');
   document.title='ÜnivAtlas';
-  const def='2026 YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.';
+  const def='__YEAR__ YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.';
   const m=document.querySelector('meta[name="description"]');if(m)m.content=def;
-  const o=document.querySelector('meta[property="og:title"]');if(o)o.content='ÜnivAtlas - 2026 YKS Tercih Rehberi';
+  const o=document.querySelector('meta[property="og:title"]');if(o)o.content='ÜnivAtlas - __YEAR__ YKS Tercih Rehberi';
   const d=document.querySelector('meta[property="og:description"]');if(d)d.content='Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.';
   if(deepLinkKod){deepLinkKod='';syncUrl()}
 }
@@ -1035,6 +1043,10 @@ window.addEventListener('popstate',()=>{
 });
 init();
 </script>
+
+<footer>
+  <a href="privacy.html">Gizlilik Politikası</a> · ÜnivAtlas
+</footer>
 
 </body>
 </html>
