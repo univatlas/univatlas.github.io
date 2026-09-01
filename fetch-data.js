@@ -1,9 +1,10 @@
-﻿
+
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
 const DATA_DIR = path.join(__dirname, 'data');
+fs.mkdirSync(DATA_DIR, { recursive: true });
 const API = 'https://yokatlas.yok.gov.tr/api/tercih-kilavuz/search';
 const NETLER_API = 'https://yokatlas.yok.gov.tr/api/netler/search';
 const PAGE_SIZE = 500;
@@ -35,15 +36,15 @@ function post(url, body, retry = 0) {
         if (res.statusCode === 418 || res.statusCode === 429) {
           if (retry < MAX_RETRIES) {
             const wait = Math.pow(2, retry + 1) * 1000;
-            console.log(`  Ã¢ÂÂ³ Rate limit (${res.statusCode}), ${wait / 1000}s bekleniyor... (deneme ${retry + 1}/${MAX_RETRIES})`);
+            console.log(`  Rate limit (${res.statusCode}), waiting ${wait / 1000}s... (attempt ${retry + 1}/${MAX_RETRIES})`);
             return setTimeout(() => post(url, body, retry + 1).then(resolve, reject), wait);
           }
-          return reject(new Error(`Rate limit aÃ…Å¸Ã„Â±ldÃ„Â± (${res.statusCode})`));
+          return reject(new Error(`Rate limit exceeded (${res.statusCode})`));
         }
         if (res.statusCode !== 200) {
           if (retry < MAX_RETRIES) {
             const wait = Math.pow(2, retry + 1) * 1000;
-            console.log(`  Ã¢ÂÂ³ HTTP ${res.statusCode}, ${wait / 1000}s bekleniyor... (deneme ${retry + 1}/${MAX_RETRIES})`);
+            console.log(`  HTTP ${res.statusCode}, waiting ${wait / 1000}s... (attempt ${retry + 1}/${MAX_RETRIES})`);
             return setTimeout(() => post(url, body, retry + 1).then(resolve, reject), wait);
           }
           return reject(new Error(`HTTP ${res.statusCode}: ${raw.substring(0, 200)}`));
@@ -55,7 +56,7 @@ function post(url, body, retry = 0) {
     req.on('error', err => {
       if (retry < MAX_RETRIES) {
         const wait = Math.pow(2, retry + 1) * 1000;
-        console.log(`  Ã¢ÂÂ³ BaÃ„Å¸lantÃ„Â± hatasÃ„Â±, ${wait / 1000}s bekleniyor... (deneme ${retry + 1}/${MAX_RETRIES})`);
+        console.log(`  Connection error, waiting ${wait / 1000}s... (attempt ${retry + 1}/${MAX_RETRIES})`);
         return setTimeout(() => post(url, body, retry + 1).then(resolve, reject), wait);
       }
       reject(err);
@@ -64,10 +65,10 @@ function post(url, body, retry = 0) {
       req.destroy();
       if (retry < MAX_RETRIES) {
         const wait = Math.pow(2, retry + 1) * 1000;
-        console.log(`  Ã¢ÂÂ³ Zaman aÃ…Å¸Ã„Â±mÃ„Â±, ${wait / 1000}s bekleniyor... (deneme ${retry + 1}/${MAX_RETRIES})`);
+        console.log(`  Timeout, waiting ${wait / 1000}s... (attempt ${retry + 1}/${MAX_RETRIES})`);
         return setTimeout(() => post(url, body, retry + 1).then(resolve, reject), wait);
       }
-      reject(new Error('Zaman aÃ…Å¸Ã„Â±mÃ„Â±'));
+      reject(new Error('Timeout'));
     });
     req.write(data);
     req.end();
@@ -82,9 +83,7 @@ function fmt(n) {
 }
 
 async function fetchAll() {
-  console.log('Ã¢â€¢â€Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢â€”');
-  console.log('Ã¢â€¢â€˜   YÃƒâ€“K Atlas Veri Ãƒâ€¡ekme BaÃ…Å¸latÃ„Â±ldÃ„Â±   Ã¢â€¢â€˜');
-  console.log('Ã¢â€¢Å¡Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â');
+  console.log('YOK Atlas - Data Fetch Started');
   console.log('');
 
   let all = [];
@@ -107,12 +106,12 @@ async function fetchAll() {
     all.push(...content);
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(0);
-    const kalan = totalPages() - page - 1;
+    const remaining = totalPages() - page - 1;
     console.log(
-      `  ÄŸÅ¸â€œÂ¥ Sayfa ${page + 1}/${totalPages()} | ` +
-      `${all.length.toLocaleString('tr-TR')}/${total.toLocaleString('tr-TR')} (%${pct()}) | ` +
-      `Ã„Â°ndirilen: ${fmt(totalDownloaded)} | ` +
-      `Kalan: ${kalan} sayfa | ` +
+      `  Page ${page + 1}/${totalPages()} | ` +
+      `${all.length.toLocaleString()}/${total.toLocaleString()} (%${pct()}) | ` +
+      `Downloaded: ${fmt(totalDownloaded)} | ` +
+      `Remaining: ${remaining} pages | ` +
       `${elapsed}s`
     );
 
@@ -122,11 +121,11 @@ async function fetchAll() {
   }
 
   console.log('');
-  console.log(`  Ã¢Å“â€¦ ${all.length.toLocaleString('tr-TR')} program ÃƒÂ§ekildi (${fmt(totalDownloaded)})`);
-  console.log(`  Ã¢ÂÂ±  SÃƒÂ¼re: ${((Date.now() - startTime) / 1000).toFixed(0)}s`);
+  console.log(`  Done: ${all.length.toLocaleString()} programs fetched (${fmt(totalDownloaded)})`);
+  console.log(`  Elapsed: ${((Date.now() - startTime) / 1000).toFixed(0)}s`);
   console.log('');
 
-  console.log('  ÄŸÅ¸â€œÂ¦ Veri iÃ…Å¸leniyor...');
+  console.log('  Processing data...');
   const offline = {};
   const yilCounts = {};
   for (const p of all) {
@@ -137,7 +136,7 @@ async function fetchAll() {
   for (const p of all) {
     const kod = String(p.kilavuzKodu || '');
     if (!kod) continue;
-    const yil = String(p.yil || String(new Date().getFullYear()));
+    const yil = String(p.yil || defaultYil);
     const yearly = {};
     yearly[yil] = {
       kn: p.kontenjan,
@@ -179,14 +178,13 @@ async function fetchAll() {
   }
 
   fs.writeFileSync(path.join(DATA_DIR, 'offline-data.json'), JSON.stringify(offline));
-  console.log(`  ÄŸÅ¸â€œâ€ offline-data.json: ${fmt(fs.statSync(path.join(DATA_DIR, 'offline-data.json')).size)}`);
+  console.log(`  offline-data.json: ${fmt(fs.statSync(path.join(DATA_DIR, 'offline-data.json')).size)}`);
 
   console.log('');
-  console.log('  ÄŸÅ¸â€œÂ¥ Net verileri ÃƒÂ§ekiliyor...');
+  console.log('  Fetching net data...');
   let allNets = [];
   let netPage = 0;
   let netTotal = Infinity;
-  let netDownloaded = 0;
   const netStart = Date.now();
 
   while (allNets.length < netTotal) {
@@ -196,11 +194,11 @@ async function fetchAll() {
     allNets.push(...content);
     const netTotalPages = Math.ceil(netTotal / PAGE_SIZE);
     const pct = netTotal > 0 ? ((allNets.length / netTotal) * 100).toFixed(1) : '0.0';
-    const kalan = netTotalPages - netPage - 1;
+    const remaining = netTotalPages - netPage - 1;
     console.log(
-      `    ÄŸÅ¸â€œÂ¥ Sayfa ${netPage + 1}/${netTotalPages} | ` +
-      `${allNets.length.toLocaleString('tr-TR')}/${netTotal.toLocaleString('tr-TR')} (%${pct}) | ` +
-      `Kalan: ${kalan} sayfa`
+      `    Page ${netPage + 1}/${netTotalPages} | ` +
+      `${allNets.length.toLocaleString()}/${netTotal.toLocaleString()} (%${pct}) | ` +
+      `Remaining: ${remaining} pages`
     );
     if (content.length < PAGE_SIZE) break;
     netPage++;
@@ -225,7 +223,7 @@ async function fetchAll() {
       obp: n.obp, katsayi: n.katsayi,
     });
   }
-  console.log(`  Ã¢Å“â€¦ ${allNets.length.toLocaleString('tr-TR')} net kaydÃ„Â± birleÃ…Å¸tirildi (${((Date.now() - netStart) / 1000).toFixed(0)}s)`);
+  console.log(`  Done: ${allNets.length.toLocaleString()} net records merged (${((Date.now() - netStart) / 1000).toFixed(0)}s)`);
 
   fs.writeFileSync(path.join(DATA_DIR, 'offline-data.json'), JSON.stringify(offline));
 
@@ -253,16 +251,14 @@ async function fetchAll() {
 
   fs.writeFileSync(path.join(DATA_DIR, 'table-data.json'), JSON.stringify(table));
   fs.writeFileSync(path.join(DATA_DIR, 'yearly-data.json'), JSON.stringify(yearlyOut));
-  console.log(`  ÄŸÅ¸â€œâ€ table-data.json: ${fmt(fs.statSync(path.join(DATA_DIR, 'table-data.json')).size)}`);
-  console.log(`  ÄŸÅ¸â€œâ€ yearly-data.json: ${fmt(fs.statSync(path.join(DATA_DIR, 'yearly-data.json')).size)}`);
+  console.log(`  table-data.json: ${fmt(fs.statSync(path.join(DATA_DIR, 'table-data.json')).size)}`);
+  console.log(`  yearly-data.json: ${fmt(fs.statSync(path.join(DATA_DIR, 'yearly-data.json')).size)}`);
 
   const meta = { lastFetchYear: Number(defaultYil), totalPrograms: all.length };
   fs.writeFileSync(path.join(DATA_DIR, 'metadata.json'), JSON.stringify(meta));
 
   console.log('');
-  console.log('Ã¢â€¢â€Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢â€”');
-  console.log('Ã¢â€¢â€˜        Ã¢Å“â€¦ Ãƒâ€¡ekme TamamlandÃ„Â±!          Ã¢â€¢â€˜');
-  console.log('Ã¢â€¢Å¡Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â');
+  console.log('=== Fetch Complete! ===');
 }
 
-fetchAll().catch(e => { console.error('Ã¢ÂÅ’ Hata:', e.message); process.exit(1); });
+fetchAll().catch(e => { console.error('Error:', e.message); process.exit(1); });
