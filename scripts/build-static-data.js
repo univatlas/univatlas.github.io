@@ -66,7 +66,7 @@ for (let i = 0; i < details.length; i++) {
 }
 fs.writeFileSync(path.join(out, 'config.js'), `window.YOK_ATLAS_DATA=${JSON.stringify({ version, catalog, totalPrograms: source.length, lastFetchYear: meta.lastFetchYear })};\n`);
 
-const siteUrl = 'https://yokatlas.com';
+const siteUrl = 'https://univatlas.github.io';
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>${siteUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
