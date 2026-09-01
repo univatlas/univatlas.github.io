@@ -8,8 +8,8 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>ÜnivAtlas - Üniversite ve Bölüm Tercih Rehberi</title>
-<meta name="description" content="__YEAR__ YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.">
-<meta property="og:title" content="ÜnivAtlas - __YEAR__ YKS Tercih Rehberi">
+<meta name="description" content="2026 YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.">
+<meta property="og:title" content="ÜnivAtlas - 2026 YKS Tercih Rehberi">
 <meta property="og:description" content="Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.png" type="image/png">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
 <script src="data/static/config.js"></script>
-<script>document.querySelector('meta[name="description"]').content=document.querySelector('meta[name="description"]').content.replace('__YEAR__',window.YOK_ATLAS_DATA.lastFetchYear)</script>
+<script>document.querySelector('meta[name="description"]').content=document.querySelector('meta[name="description"]').content.replace('2026',window.YOK_ATLAS_DATA.lastFetchYear)</script>
 <script src="static.js?v=3"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3813680795415350" crossorigin="anonymous"></script>
 <style>
@@ -1015,9 +1015,9 @@ async function openDraw(kod){
 function closeDraw(){
   document.getElementById('dmask').classList.remove('open');
   document.title='ÜnivAtlas';
-  const def='__YEAR__ YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.';
+  const def='2026 YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.';
   const m=document.querySelector('meta[name="description"]');if(m)m.content=def;
-  const o=document.querySelector('meta[property="og:title"]');if(o)o.content='ÜnivAtlas - __YEAR__ YKS Tercih Rehberi';
+  const o=document.querySelector('meta[property="og:title"]');if(o)o.content='ÜnivAtlas - 2026 YKS Tercih Rehberi';
   const d=document.querySelector('meta[property="og:description"]');if(d)d.content='Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.';
   if(deepLinkKod){deepLinkKod='';syncUrl()}
 }
