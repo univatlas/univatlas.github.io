@@ -1,0 +1,1040 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>ÜnivAtlas - Üniversite ve Bölüm Tercih Rehberi</title>
+<meta name="description" content="__YEAR__ YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.">
+<meta property="og:title" content="ÜnivAtlas - __YEAR__ YKS Tercih Rehberi">
+<meta property="og:description" content="Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+<script src="data/static/config.js"></script>
+<script>document.querySelector('meta[name="description"]').content=document.querySelector('meta[name="description"]').content.replace('__YEAR__',window.YOK_ATLAS_DATA.lastFetchYear)</script>
+<script src="static.js?v=3"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3813680795415350" crossorigin="anonymous"></script>
+<style>
+:root{--red:#d6454d;--red-dark:#880000;--gray:#8c8c8d;--border:#e2e2e2;--bg:#f5f5f5}
+*{box-sizing:border-box;margin:0;padding:0}
+html{max-width:100vw;overflow-x:hidden}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#404041;font-size:17px;line-height:1.45;overflow-x:hidden;max-width:100vw}
+.topbar{background:linear-gradient(180deg, rgba(237,221,83,1) 0%, rgba(237,221,83,0) 100%);color:#000;padding:5px 14px;position:sticky;top:0;z-index:50}
+.topbar-in{display:flex;align-items:center;gap:10px}
+.topbar-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}
+.topbar h1{font-family:'Quicksand',Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;letter-spacing:.8px;text-align:left;line-height:1.1;color:#404041}@media(max-width:768px){
+  .topbar-logo{width:22px;height:22px}
+  .topbar h1{font-size:14px}
+}
+.card{background:#fff;margin:10px 8px;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.06)}
+.card-title{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--red);color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;line-height:18px;border-bottom:1px solid rgba(0,0,0,.08)}
+.card-body{padding:10px 12px}
+select,input[type=text]{border:1px solid #ccc;font-size:16px;font-family:inherit;height:36px;padding:0 7px;outline:none}
+select:focus,input[type=text]:focus{border-color:var(--red)}
+input[type=text]{width:120px}
+.ck{display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-size:15px;padding:3px 5px;margin:1px 0;line-height:21px;user-select:none}
+.ck input{width:17px;height:17px;accent-color:#762516;cursor:pointer;flex-shrink:0}
+.dual-list{display:flex;border:1px solid #9f9f9f}
+.dual-col{flex:1;min-width:0}
+.dual-col+.dual-col{border-left:2px solid #fff}
+.dual-col h4{display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:15px;font-weight:700;background:#e9e9e9;line-height:26px;border-bottom:1px solid #ccc}
+.dual-col h4 input{width:17px;height:17px;accent-color:#762516;cursor:pointer}
+.scroll-box{height:220px;overflow-y:auto;overflow-x:hidden}
+.scroll-box ul{list-style:none}
+.scroll-box li{display:flex;align-items:center;gap:3px;padding:2px 4px;font-size:14px;background:#d9d9d9;border-top:2px solid #fff;color:#000099;font-weight:700;cursor:pointer;line-height:20px}
+.scroll-box li:nth-child(even){background:#fff}
+.scroll-box li:hover{background:#4289ed;color:#fff}
+.scroll-box li label{display:flex;align-items:center;gap:3px;cursor:pointer;width:100%;overflow:hidden}
+.scroll-box li input{width:16px;height:16px;flex-shrink:0;accent-color:#762516}
+.scroll-box li p{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.alan-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.alan-row select{flex:1;min-width:120px}
+.alan-row input{width:110px}
+.search-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:calc(100% - 16px);margin:10px 8px;padding:0;border:0;height:48px;font-family:'Poppins',Arial,sans-serif;font-size:17px;font-weight:700;background:#16a34a;color:#fff;cursor:pointer;line-height:1;text-align:center;transition:background .15s, transform .1s;box-shadow:0 4px 12px rgba(22,163,74,.25);border-radius:10px;letter-spacing:.3px}
+.search-btn:hover{background:#15803d}
+.search-btn:active{transform:scale(0.98)}
+.info-bar{background:#fff;border:1px solid var(--border);margin:6px 8px 0;padding:6px 10px;font-size:15px;color:#666}
+.table-settings{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-bottom:0;margin:6px 8px 0;padding:6px 10px;font-size:14px}
+.table-settings label{display:inline-flex;align-items:center;gap:5px;font-weight:700;cursor:pointer}
+.table-settings input{width:17px;height:17px;accent-color:#762516}
+.table-settings select{height:30px;font-size:14px}
+.table-settings label.mobile-only{display:none}
+@media(max-width:768px){.table-settings label.mobile-only{display:inline-flex}}
+.sort-direction{width:30px;height:30px;border:1px solid #aaa;background:#fff;cursor:pointer;font-size:16px;line-height:1}
+.ts-right{margin-left:auto;display:flex;gap:6px}
+.ts-btn{border:1px solid #aaa;background:#fff;padding:4px 10px;font-size:14px;cursor:pointer;line-height:22px;border-radius:3px}
+.ts-btn:hover{background:#f0f0f0}
+.ts-btn.danger{color:var(--red);border-color:var(--red);font-weight:700}
+body.compact-table .compact-hide{display:none}
+body.compact-table.compact-sort-puan .sort-rank{display:none}
+body.compact-table.compact-sort-sira .sort-score{display:none}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 8px 6px;border:1px solid var(--border);background:#fff;max-width:calc(100vw - 16px)}
+table{width:100%;border-collapse:collapse;font-size:14px;table-layout:auto}
+thead th{background:var(--gray);color:#fff;font-weight:400;padding:6px 3px;text-align:center;border-left:1px solid #fff;font-size:14px;white-space:nowrap;position:sticky;top:0;z-index:2;line-height:19px}
+thead th:first-child{border-left:0}
+thead th small{display:block;font-size:11px;font-weight:400;opacity:.85;line-height:14px}
+tbody td{padding:3px 2px;text-align:center;border-left:1px solid #fff;font-size:14px;line-height:19px;vertical-align:middle;white-space:nowrap}
+tbody td:first-child{border-left:0}
+tbody tr{background:#fff;height:40px}
+tbody tr:nth-child(even){background:#f2f2f2}
+tbody tr:hover{background:#4289ed;color:#fff}
+tbody tr:hover td a{color:#fff!important}
+tbody tr:hover .uname{color:#fff!important}
+tbody tr:hover .uname-sub{color:#ddd!important}
+tbody tr:hover .l-flex.uni-devlet, tbody tr:hover .l-flex.uni-vakif{border-left-color:#fff}
+td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
+.l-flex{display:flex;align-items:center;gap:0;white-space:normal}
+.kod{font-family:'Courier New',monospace;font-size:11px;white-space:nowrap}
+.uname{display:block;font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#0f172a;line-height:16px;overflow:hidden;max-width:190px;letter-spacing:-0.1px}
+.uname-sub{display:block;font-size:11px;color:#64748b;line-height:13px;overflow:hidden;max-width:190px}
+.bname{display:block;font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#0f172a;line-height:16px;overflow:hidden;max-width:175px}
+.bname-sub{display:block;font-size:11px;color:#64748b;line-height:13px;overflow:hidden;max-width:175px}
+.badge{display:inline-block;font-size:8px;padding:0 3px;border-radius:2px;font-weight:700;line-height:14px;white-space:nowrap;vertical-align:middle}
+.bg-ing{background:#bdd7ee;color:#1f4e79}
+.bg-vakif{background:#fce4d6;color:#974706}
+.bg-burslu{background:#c6efce;color:#006100}
+.bg-ucretli{background:#ffc7ce;color:#9c0006}
+.bg-yuzde{background:#fce4d6;color:#974706}
+.yr{display:block;white-space:nowrap}
+.yr-row{display:block;line-height:19px;font-family:'Courier New',monospace;font-weight:700;font-size:14px}
+.yr-y{display:inline-block;width:42px;font-size:11px;color:#666;background:#f0f0f0;padding:0 2px;border:1px solid #ddd}
+.yr-v{display:inline-block;text-align:right;padding:0 3px;border:1px solid #ddd;border-left:0;min-width:50px}
+.pager{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;align-items:center;padding:6px 8px;background:#fff;border-top:1px solid var(--border)}
+.pager button{border:1px solid #ccc;background:#fff;padding:4px 8px;font-size:14px;cursor:pointer;line-height:19px;min-width:30px}
+.pager button.active{background:var(--red-dark);color:#fff;border-color:var(--red-dark)}
+.pager button:disabled{opacity:.35;cursor:default}
+.view-tabs{display:flex;gap:6px;margin:6px 8px 0;padding:6px 10px;background:#fff;border:1px solid var(--border);border-bottom:0}
+.view-btn{flex:1;border:1px solid #ccc;background:#fff;padding:8px 6px;font-size:16px;font-weight:700;cursor:pointer;color:#555;border-radius:4px;line-height:20px}
+.view-btn.active{background:var(--red);color:#fff;border-color:var(--red)}
+.view-btn .cnt{opacity:.85;font-weight:400}
+.tl-cell{width:30px;padding:0 2px;text-align:center;vertical-align:middle}
+.tl-ck{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.tl-ck input{width:16px;height:16px;accent-color:#762516;cursor:pointer}
+.tl-arrows{display:flex;flex-direction:column;gap:1px;align-items:center}
+.tl-ar{width:24px;height:16px;border:1px solid #ccc;background:#fff;cursor:pointer;font-size:9px;line-height:1;padding:0;color:#333}
+.tl-ar:hover:not(:disabled){background:#e8e8e8}
+.tl-ar:disabled{opacity:.3;cursor:default}
+.tl-ar.tl-x{color:var(--red);font-weight:700}
+.drag-row.dragging{opacity:.45}
+.drag-row.dragover{outline:2px dashed var(--red);outline-offset:-2px}
+.drawer-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:60}
+.drawer-mask.open{display:flex;align-items:center;justify-content:center}
+.drawer{background:#fff;width:min(560px,calc(100vw - 24px));height:min(90vh,900px);overflow-y:auto;padding:14px;position:relative;border-radius:6px;box-shadow:0 12px 36px rgba(0,0,0,.3)}
+.drawer .x{position:absolute;right:10px;top:8px;background:var(--red-dark);color:#fff;border:0;padding:3px 10px;cursor:pointer;font-size:12px;line-height:18px;z-index:1}
+.drawer h2{font-size:21px;margin-bottom:2px}
+.drawer h3{font-size:16px;color:var(--red);border-bottom:2px solid var(--border);padding-bottom:3px;margin:10px 0 5px}
+.drawer .kv{display:grid;grid-template-columns:105px 1fr;gap:3px;font-size:14px;padding:3px 0;border-bottom:1px solid #f5f5f5;line-height:20px}
+.drawer .kv b{color:#333}
+.drawer .nets{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin:8px 0;font-size:12px;line-height:1.4;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.drawer .nets-head{display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:#f8fafc;padding:6px 10px;border-bottom:1px solid #e2e8f0}
+.drawer .nets-year{background:var(--red);color:#fff;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.3px}
+.drawer .nets-dip{font-size:13px;color:#000;font-weight:800;letter-spacing:.1px}
+.drawer .nets-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px}
+.drawer .nets-group{background:#f8fafc;border:1px solid #eef2f7;border-radius:8px;padding:6px}
+.drawer .nets-group-title{display:block;font-size:10px;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;padding-bottom:3px;border-bottom:1px dashed #e2e8f0}
+.drawer .net-pill{display:inline-flex;align-items:center;gap:3px;background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:2px 7px;font-size:11px;color:#475569;margin:2px;font-weight:500}
+.drawer .net-pill b{font-size:11px;color:#0f172a;font-weight:700}
+@media(max-width:480px){.drawer .nets-grid{grid-template-columns:1fr;gap:6px}}
+.ck-check{color:#16a34a;font-weight:700}
+.ck-x{color:#999;font-weight:700}
+.kosul-sub{display:none}
+.l-flex.uni-devlet,.l-flex.uni-vakif{border-left:none;padding-left:0}
+.uni-logo{width:26px;height:26px;border-radius:4px;object-fit:contain;background:#f0f0f0;flex-shrink:0;margin-right:4px}
+.uni-logo-big{width:56px;height:56px;border-radius:8px;object-fit:contain;background:#f0f0f0;float:left;margin:0 10px 4px 0}
+.logo-fail{display:none!important}
+.reset-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:#000;width:34px;height:34px;font-size:17px;line-height:1;cursor:pointer;border-radius:5px;display:flex;align-items:center;justify-content:center;z-index:2}
+.reset-btn:hover{background:rgba(255,255,255,.2)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:768px){
+  .reset-btn{width:30px;height:30px;font-size:15px}
+}
+@media(max-width:768px){
+  .uni-logo{width:18px;height:18px}
+  .uni-logo-big{width:40px;height:40px}
+  .drawer-mask.open{align-items:stretch;justify-content:flex-end}
+  .drawer{width:100vw;height:100%;border-radius:0}
+}
+@media(max-width:768px){
+  body{font-size:16px}
+  .topbar h1{font-size:20px}
+  .card{margin:4px 6px}
+  .dual-list{flex-direction:column}
+  .dual-col+.dual-col{border-left:0;border-top:2px solid #fff}
+  .scroll-box{height:160px}
+  thead th{font-size:12px;padding:4px 2px}
+  tbody td{padding:3px 2px;font-size:12px}
+  .uni-logo{width:24px;height:24px}
+  .uni-logo-big{width:40px;height:40px}
+}
+/* --- Responsive tablo: mobilde kart görünümü, yatay kaydırma yok --- */
+@media(max-width:768px){
+  .table-wrap{overflow:visible;border:none;background:transparent;margin:0 6px 6px}
+  table, thead, tbody{display:block;width:100%}
+  thead{display:none}
+  tbody tr{position:relative;display:flex;flex-wrap:wrap;gap:0;background:#fff;border:1px solid var(--border);border-left:4px solid transparent;border-radius:8px;margin-bottom:6px;padding:6px 8px 6px 32px;height:auto;box-shadow:0 1px 2px rgba(0,0,0,.05);overflow:hidden}
+  tbody tr.card-devlet{border-left-color:#22c55e}
+  tbody tr.card-vakif{border-left-color:#f97316}
+  tbody tr:nth-child(even){background:#fff}
+  tbody tr:hover{background:#fff;color:inherit}
+  tbody tr:hover .uname{color:#0e6600!important}
+  tbody tr:hover .uname-sub{color:#888!important}
+  tbody td{flex:0 0 100%;display:block;border:none;text-align:left;padding:1px 0;white-space:normal;font-size:12px;box-sizing:border-box}
+  tbody td.tl-cell{flex:0 0 100%;display:flex;align-items:center;gap:6px;padding-bottom:4px;margin-bottom:4px;border-bottom:1px solid #f0f0f0}
+  /* Kartta checkbox - üni logosunun soluna büyük, sadece kart gösterimi */
+  tbody td.tl-cell:has(.tl-ck){flex:0 0 36px;align-self:stretch;display:flex;align-items:center;justify-content:center;padding:0;margin:0 6px 0 0;border:none;border-bottom:none;background:transparent}
+  tbody td.tl-cell:has(.tl-ck) .tl-ck input{width:22px;height:22px}
+  tbody tr:has(.tl-ck) td.l:nth-child(3){flex:0 0 calc(100% - 42px);padding:0;margin:2px 0}
+  tbody td:nth-child(2){position:absolute;left:4px;top:6px;bottom:6px;width:18px;display:block;word-break:break-all;white-space:normal;text-align:center;line-height:10px;font-size:11px;font-weight:700;letter-spacing:0;color:#555;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:5px 2px;margin:0;writing-mode:horizontal-tb;transform:none}
+  tbody td:nth-child(2)::before{content:"#";display:block;opacity:.6;margin:0 0 2px 0}
+  td.l{padding-left:0}
+  td.l:nth-child(4){background:#fff;border:1px solid #eef2f7;border-radius:8px;padding:7px 8px;margin:4px 0 2px 0}
+  .uname{max-width:none;font-size:14px;line-height:16px;font-weight:800;color:#1e293b;letter-spacing:-0.2px;display:block}
+  .uname-sub{display:inline-flex;align-items:center;max-width:none;font-size:10px;line-height:12px;font-weight:600;color:#64748b;background:#f1f5f9;border:1px solid #e2e8f0;padding:2px 7px;border-radius:20px;margin-top:3px;white-space:nowrap}
+  .bname{max-width:none;font-size:14px;line-height:16px;font-weight:700;color:#0f172a;display:block}
+  .bname-sub{display:flex;flex-wrap:wrap;gap:4px;max-width:none;font-size:11px;line-height:13px;white-space:normal;color:#475569;margin-top:3px;font-weight:500}
+  .bname-sub::before{content:"";display:none}
+  .l-flex{gap:8px;background:#f8fafc;border:1px solid #eef2f7;border-radius:8px;padding:7px 8px;align-items:center}
+  .l-flex.uni-devlet,.l-flex.uni-vakif{border-left:none;padding-left:8px}
+  .uni-logo{width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;object-fit:contain}
+  /* Yıllık veriler: yan yana kartçıklar - kompakt */
+  .yr{display:flex;flex-wrap:wrap;gap:4px}
+  .yr-row{display:inline-flex;flex-direction:column;align-items:center;gap:0;background:#f8fafc;border:1px solid #eef2f7;border-radius:5px;padding:3px 4px;min-width:62px;flex:1}
+  .yr-y{width:auto;background:transparent;border:none;padding:0;font-size:9px;color:#6b7280;line-height:11px}
+  .yr-v{border:none;background:transparent;min-width:0;padding:0;font-size:11px;line-height:14px}
+  /* Etiketler */
+  td.sort-rank::before{content:"Sıralama";display:block;font-size:10px;font-weight:700;color:#6b7280;margin:4px 0 2px;letter-spacing:.2px}
+  td.sort-score::before{content:"Puan";display:block;font-size:10px;font-weight:700;color:#6b7280;margin:4px 0 2px;letter-spacing:.2px}
+  td:nth-child(7)::before{content:"Kontenjan";display:block;font-size:10px;font-weight:700;color:#6b7280;margin:4px 0 2px;letter-spacing:.2px}
+  /* Koşul/AKRD/TYÇ - kartta AKRDT/TYÇ koşulun alt satırında yazı olarak */
+  td.compact-hide:nth-child(8){flex:0 0 100%;display:block;font-size:10px;color:#6b7280;padding:4px 0;border-top:1px dashed #eee;margin-top:3px}
+  td.compact-hide:nth-child(9), td.compact-hide:nth-child(10){display:none}
+  .kosul-main{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kosul-sub{display:block;font-size:9px;color:#64748b;margin-top:3px;font-weight:500;white-space:normal}
+  td.compact-hide:nth-child(8)::before{content:"Koşul:";font-weight:700}
+  td.compact-hide:nth-child(9)::before{content:"AKRDT:";font-weight:700}
+  td.compact-hide:nth-child(10)::before{content:"TYÇ:";font-weight:700}
+  body.compact-table td.compact-hide{display:none !important}
+  /* Tercih listesi sürükle okları mobilde yatay - kompakt */
+  .tl-arrows{flex-direction:row;gap:3px}
+  .tl-ar{width:28px;height:24px;font-size:11px}
+}
+/* Mobilde eski tablo görünümü (toggle açıkken) */
+@media(max-width:768px){
+  body.mobile-table-view .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);background:#fff;margin:0 6px 6px;max-width:calc(100vw - 12px)}
+  body.mobile-table-view table, body.mobile-table-view thead, body.mobile-table-view tbody{display:table;width:100%}
+  body.mobile-table-view thead{display:table-header-group}
+  body.mobile-table-view tbody{display:table-row-group}
+  body.mobile-table-view tbody tr{position:static;display:table-row;flex-wrap:nowrap;gap:0;background:#fff;border:none;border-left:none;border-radius:0;margin:0;padding:0;height:40px;box-shadow:none;overflow:visible;flex:none}
+  body.mobile-table-view tbody tr.card-devlet, body.mobile-table-view tbody tr.card-vakif{border-left:none}
+  body.mobile-table-view tbody tr:nth-child(even){background:#f2f2f2}
+  body.mobile-table-view tbody tr:hover{background:#4289ed;color:#fff}
+  body.mobile-table-view tbody tr:hover .uname{color:#fff!important}
+  body.mobile-table-view tbody tr:hover .uname-sub{color:#ddd!important}
+  body.mobile-table-view tbody td{flex:none;order:initial;display:table-cell;border-left:1px solid #fff;text-align:center;padding:3px 2px;white-space:nowrap;font-size:11px;vertical-align:middle}
+  body.mobile-table-view tbody td:first-child{border-left:0}
+  body.mobile-table-view tbody td.tl-cell{flex:none;order:initial;display:table-cell;gap:0;padding:3px 2px;margin:0;border:none;border-left:1px solid #fff;border-bottom:none}
+  body.mobile-table-view tbody td.tl-cell:has(.tl-ck){flex:none;order:initial;display:table-cell;width:auto}
+  body.mobile-table-view tbody td.tl-cell:has(.tl-ck) .tl-ck input{width:16px;height:16px}
+  body.mobile-table-view tbody tr:has(.tl-ck) td.l:nth-child(3){flex:none;display:table-cell;width:auto;padding:4px;margin:0}
+  body.mobile-table-view tbody td:nth-child(2){position:static;flex:none;order:initial;display:table-cell;left:auto;top:auto;bottom:auto;width:auto;writing-mode:horizontal-tb;transform:none;letter-spacing:0;font-size:11px;color:inherit;background:transparent;padding:3px 2px;border-radius:0;margin:0;text-align:center;word-break:normal;white-space:nowrap;line-height:19px}
+  body.mobile-table-view tbody td:nth-child(2)::before{display:none}
+  body.mobile-table-view .l-flex.uni-devlet, body.mobile-table-view .l-flex.uni-vakif{border-left:none;padding-left:0}
+  body.mobile-table-view td.l{text-align:left;padding-left:4px;white-space:normal}
+  body.mobile-table-view td.l:nth-child(3){padding:4px;margin:0;background:transparent;border:none}
+  body.mobile-table-view td.l:nth-child(4){padding:3px 2px;margin:0;background:transparent;border:none;border-left:1px solid #fff;border-radius:0}
+  body.mobile-table-view .uname{display:block;max-width:190px;font-size:12px;line-height:18px;font-weight:700;color:#000066;letter-spacing:0;background:transparent;border:none;padding:0;margin:0}
+  body.mobile-table-view .uname-sub{display:block;max-width:190px;font-size:11px;line-height:14px;font-weight:400;color:#888;background:transparent;border:none;padding:0;margin:0;border-radius:0;white-space:normal}
+  body.mobile-table-view .bname{display:block;max-width:175px;font-size:12px;line-height:17px;font-weight:700;color:#000066;background:transparent;border:none;padding:0;margin:0}
+  body.mobile-table-view .bname-sub{display:block;max-width:175px;font-size:11px;line-height:14px;color:#888;background:transparent;border:none;padding:0;margin:0;font-weight:400;gap:0}
+  body.mobile-table-view .l-flex{display:flex;gap:0;background:transparent;border:none;border-radius:0;padding:0;align-items:center}
+  body.mobile-table-view .uni-logo{width:24px;height:24px;border:none;border-radius:4px;background:#f0f0f0;object-fit:contain}
+  body.mobile-table-view .yr{display:block;white-space:nowrap}
+  body.mobile-table-view .yr-row{display:block;line-height:15px;background:transparent;border:none;border-radius:0;padding:0;min-width:0;flex:none}
+  body.mobile-table-view .yr-y{display:inline-block;width:32px;font-size:9px;color:#666;background:#f0f0f0;padding:0 2px;border:1px solid #ddd}
+  body.mobile-table-view .yr-v{display:inline-block;text-align:right;padding:0 3px;border:1px solid #ddd;border-left:0;min-width:38px;font-size:11px}
+  body.mobile-table-view td.sort-rank::before, body.mobile-table-view td.sort-score::before, body.mobile-table-view td:nth-child(7)::before{display:none}
+  body.mobile-table-view td.compact-hide{flex:none;order:initial;display:table-cell;font-size:11px;color:inherit;padding:3px 2px;border-top:none;margin:0;border-left:1px solid #fff;text-align:center;border-radius:0;background:transparent}
+  body.mobile-table-view td.compact-hide::before{display:none}
+  body.mobile-table-view td.compact-hide:nth-child(8)::before, body.mobile-table-view td.compact-hide:nth-child(9)::before, body.mobile-table-view td.compact-hide:nth-child(10)::before{display:none}
+  body.mobile-table-view .kosul-sub{display:none !important}
+  body.mobile-table-view .kosul-main{display:inline;white-space:normal;overflow:visible;text-overflow:clip}
+  body.mobile-table-view .tl-arrows{flex-direction:column;gap:1px}
+  body.mobile-table-view .tl-ar{width:24px;height:16px;font-size:9px}
+  body.mobile-table-view table{min-width:860px}
+}
+/* Tablet: tablo sığdırma - yazı ve padding küçült */
+@media(max-width:1024px) and (min-width:769px){
+  table{font-size:12px}
+  thead th{font-size:11px;padding:4px 2px}
+  tbody td{font-size:11px;padding:3px 2px}
+  .uname{max-width:130px;font-size:12px}
+  .uname-sub{max-width:130px}
+  .bname{max-width:120px;font-size:12px}
+  .bname-sub{max-width:120px}
+  .yr-y{width:32px;font-size:9px}
+  .yr-v{min-width:38px;font-size:11px}
+  .yr-row{line-height:15px}
+}
+@media(max-width:480px){
+  .yr-row{min-width:68px}
+  .table-settings{font-size:12px;padding:6px 8px}
+  .ts-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <img id="topLogo" class="topbar-logo" src="logo.png" alt="ÜnivAtlas" onerror="this.style.display='none'">
+    <h1>ÜnivAtlas</h1>
+  </div>
+  <button class="reset-btn" type="button" onclick="resetAll()" title="Sıfırla" aria-label="Sıfırla"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
+</div>
+
+<div class="card">
+  <div class="card-title">ALAN ve SIRALAMA</div>
+  <div class="card-body">
+    <div class="alan-row">
+      <select id="fPuan" onchange="renderBolum();syncUrl()">
+        <option value="ALL">TÜM PUAN TÜRLERİ</option>
+        <option value="TYT">TYT</option>
+        <option value="SAY">SAYISAL</option>
+        <option value="EA">EŞİT AĞIRLIK</option>
+        <option value="SÖZ">SÖZEL</option>
+        <option value="DİL">DİL</option>
+      </select>
+      <input type="text" id="fMinS" placeholder="Min Sıralama" oninput="fmtNum(this);syncUrl()">
+      <input type="text" id="fMaxS" placeholder="Max Sıralama" oninput="fmtNum(this);syncUrl()">
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">ARAMA KRİTERLERİ</div>
+  <div class="card-body">
+    <div style="margin-bottom:4px">
+      <label class="ck"><input type="checkbox" id="fDev" checked onchange="typeCk()"> DEVLET</label>
+      <label class="ck"><input type="checkbox" id="fVak" checked onchange="typeCk()"> VAKIF</label>
+    </div>
+    <div style="margin-bottom:4px">
+      <label class="ck" id="optUcr"><input type="checkbox" id="bUcr" checked onchange="freeCk(this.checked)"> Ücretsiz</label>
+      <label class="ck" id="optBrs"><input type="checkbox" id="bBrs" checked onchange="syncUrl()"> Burslu</label>
+      <label class="ck" id="opt50"><input type="checkbox" id="b50" checked onchange="syncUrl()"> %50</label>
+      <label class="ck" id="opt25"><input type="checkbox" id="b25" checked onchange="syncUrl()"> %25</label>
+      <label class="ck" id="optUcret"><input type="checkbox" id="bUcret" checked onchange="syncUrl()"> Ücretli</label>
+    </div>
+    <div style="margin-bottom:4px">
+      <label class="ck"><input type="checkbox" id="fYeni" checked onchange="syncUrl()"> Yeni Açılanlar</label>
+      <label class="ck"><input type="checkbox" id="fDolm" checked onchange="syncUrl()"> Kont. Dolmamışlar</label>
+    </div>
+    <div>
+      <label class="ck"><input type="checkbox" id="fKktc" onchange="syncUrl()"> KKTC Uyruklu</label>
+      <label class="ck"><input type="checkbox" id="fMtok" onchange="syncUrl()"> M.T.O.K.</label>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">ŞEHİR ve ÜNİVERSİTE</div>
+  <div class="card-body" style="padding:0">
+    <div class="dual-list">
+      <div class="dual-col">
+        <h4 style="cursor:pointer" onclick="if(!event.target.closest('label')){const cb=document.getElementById('ckAllSehir'); cb.checked=!cb.checked; toggleAllSehir(cb.checked)}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" id="ckAllSehir" onchange="toggleAllSehir(this.checked)"> Tüm Şehirler</label></h4>
+        <input type="text" id="sehirSearch" placeholder="Şehir ara..." style="width:100%;height:30px;padding:0 6px;font-size:13px;border:none;border-bottom:1px solid #e2e8f0;outline:none" oninput="renderSehir()">
+        <div class="scroll-box" id="lstSehir"></div>
+      </div>
+      <div class="dual-col">
+        <h4 style="cursor:pointer" onclick="if(!event.target.closest('label')){const cb=document.getElementById('ckAllUni'); cb.checked=!cb.checked; toggleAllUni(cb.checked)}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" id="ckAllUni" onchange="toggleAllUni(this.checked)"> Tüm Üniversiteler</label></h4>
+        <input type="text" id="uniSearch" placeholder="Üniversite ara..." style="width:100%;height:30px;padding:0 6px;font-size:13px;border:none;border-bottom:1px solid #e2e8f0;outline:none" oninput="renderUni()">
+        <div class="scroll-box" id="lstUni"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">BÖLÜM SEÇİMİ</div>
+  <div class="card-body" style="padding:0">
+    <h4 style="display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:15px;font-weight:700;background:#e9e9e9;border-bottom:1px solid #ccc;cursor:pointer" onclick="if(!event.target.closest('label')){const cb=document.getElementById('ckAllBolum'); cb.checked=!cb.checked; toggleAllBolum(cb.checked)}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" id="ckAllBolum" onchange="toggleAllBolum(this.checked)"> Tüm Bölümler</label></h4>
+    <div style="padding:4px 8px">
+    <input type="text" id="bolumSearch" placeholder="Bölüm ara..." style="width:100%;margin-bottom:4px" oninput="renderBolum();syncUrl()">
+    <div class="scroll-box" id="lstBolum" style="height:180px"></div>
+    </div>
+  </div>
+</div>
+
+<button class="search-btn" onclick="P.page=0;doSearch(); setTimeout(()=>{document.querySelector('.table-wrap')?.scrollIntoView({behavior:'smooth',block:'start'})},360)">Sonuçları Göster</button>
+<div class="view-tabs">
+  <button class="view-btn" id="vwSearch" type="button" onclick="setView('search')">Arama</button>
+  <button class="view-btn" id="vwTercih" type="button" onclick="setView('tercih')">Tercih Listesi <span class="cnt" id="tlCount">(0)</span></button>
+</div>
+<div class="table-settings">
+  <label><input type="checkbox" id="compactTable" onchange="toggleCompactTable(this.checked)"> Kompakt tablo</label>
+  <label><input type="checkbox" id="hideLogos" onchange="toggleHideLogos(this.checked)"> Simgeleri gizle</label>
+  <label class="mobile-only"><input type="checkbox" id="mobileTableView" checked onchange="toggleMobileTable(this.checked)"> Tablo gösterimi</label>
+  <label>Sıralama:
+    <select id="sortBy" onchange="changeSortBy(this.value)">
+      <option value="bs" selected>Sıralamaya göre</option>
+      <option value="mp">Puana göre</option>
+    </select>
+  </label>
+  <button class="sort-direction" id="sortDirection" type="button" onclick="toggleSortDirection()" title="Artan / azalan sırayı değiştir" aria-label="Artan sıralama">▲</button>
+  <span class="ts-right">
+    <button class="ts-btn" type="button" onclick="shareUrl(this)" title="URL'yi kopyala">Paylaş</button>
+    <button class="ts-btn" type="button" onclick="printList()" title="Listeyi yazdır">Yazdır</button>
+    <button class="ts-btn" type="button" id="clearListBtn" onclick="clearTercih()" style="display:none" title="Tercih listesini boşalt">Listeyi temizle</button>
+  </span>
+</div>
+<div class="info-bar" id="infoBar">&nbsp;</div>
+
+<div class="table-wrap">
+<table id="resultsTable">
+<thead><tr>
+  <th style="width:30px"></th>
+  <th style="width:30px">SIRA</th>
+  <th style="text-align:left">Üniversite</th>
+  <th style="text-align:left">Bölüm</th>
+  <th class="sort-rank">Sıralama<small id="yh1"></small></th>
+  <th class="sort-score">Puan<small id="yh2"></small></th>
+  <th>Kontenjan<small id="yh3"></small></th>
+  <th class="compact-hide">Koş.</th>
+  <th class="compact-hide">AKRDT</th>
+  <th class="compact-hide">TYÇ</th>
+</tr></thead>
+<tbody id="tb"></tbody>
+</table>
+</div>
+<div class="pager" id="pager"></div>
+
+<div class="drawer-mask" id="dmask" onclick="if(event.target===this)closeDraw()">
+  <div class="drawer" id="dbox"></div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite">Filtreler sıfırlandı</div>
+<script>
+let C=[],U=[],B=[];
+let sSehir=new Set(),sUni=new Set(),sBolum=new Set();
+let DY=[];
+let P={page:0,total:0,elems:0};
+let tableSettings={compact:false,hideLogos:false,sortBy:'bs',sortDir:'asc',mobileTable:true};
+let deepLinkKod='';
+let tercih=[];
+let view='search';
+let dragFromKod=null;
+let cityUniMap={};
+let urlApplying=false;
+const STATE_KEY='yokatlas-state-v1';
+function saveState(){try{localStorage.setItem(STATE_KEY,buildUrlParams().toString())}catch(e){}}
+function getSavedState(){try{return localStorage.getItem(STATE_KEY)!==null?localStorage.getItem(STATE_KEY):''}catch(e){return ''}}
+function resetAll(){
+  const keepTercih=[...tercih];
+  const keepView=view;
+  sSehir.clear(); sUni.clear(); sBolum.clear();
+  const fPuan=document.getElementById('fPuan'); if(fPuan) fPuan.value='ALL';
+  const fMin=document.getElementById('fMinS'); if(fMin) fMin.value='';
+  const fMax=document.getElementById('fMaxS'); if(fMax) fMax.value='';
+  const bq=document.getElementById('bolumSearch'); if(bq) bq.value='';
+  const fDev=document.getElementById('fDev'); if(fDev) fDev.checked=true;
+  const fVak=document.getElementById('fVak'); if(fVak) fVak.checked=true;
+  const fYeni=document.getElementById('fYeni'); if(fYeni) fYeni.checked=true;
+  const fDolm=document.getElementById('fDolm'); if(fDolm) fDolm.checked=true;
+  const fKktc=document.getElementById('fKktc'); if(fKktc) fKktc.checked=false;
+  const fMtok=document.getElementById('fMtok'); if(fMtok) fMtok.checked=false;
+  syncTypeOptions(true);
+  const bBrs=document.getElementById('bBrs'); if(bBrs) bBrs.checked=true;
+  const b75=document.getElementById('b75'); if(b75) b75.checked=true;
+  const b50=document.getElementById('b50'); if(b50) b50.checked=true;
+  const b25=document.getElementById('b25'); if(b25) b25.checked=true;
+  const bUcret=document.getElementById('bUcret'); if(bUcret) bUcret.checked=true;
+  tableSettings.compact=false;
+  tableSettings.hideLogos=false;
+  tableSettings.sortBy='bs';
+  tableSettings.sortDir='asc';
+  P.page=0;
+  deepLinkKod='';
+  tercih=keepTercih;
+  view=keepView;
+  updateAllCheckboxes();
+  applyTableSettings();
+  renderSehir(); renderUni(); renderBolum(); updateViewTabs();
+  if(view==='tercih') renderTercih(); else doSearch();
+  syncUrl();
+  showToast('Filtreler sıfırlandı');
+}
+function showToast(msg){
+  const t=document.getElementById('toast'); if(!t) return;
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._hideTimer); t._hideTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+const logoFailed=new Set();
+function logoSrc(ui){if(!ui||logoFailed.has(ui))return'';return`https://yokatlas.yok.gov.tr/api/universite-logo?universiteId=${ui}`}
+function logoErr(ui){logoFailed.add(ui)}
+
+function fmtNumValue(s){return String(s||'').replace(/\D/g,'').replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+
+function cityIds(){return C.map(c=>String(c.il_kodu))}
+function filterBolumByPuan(list,pt){
+  if(pt==='ALL')return list;
+  return list.filter(b=>{
+    const t=(b.puan_turu||'').toLocaleLowerCase('tr-TR');
+    if(pt==='SAY')return t==='say'||t==='mf'||t.includes('say');
+    if(pt==='EA')return t==='ea'||t==='ts'||t.includes('ea');
+    if(pt==='SÖZ')return t==='söz'||t==='ts'||t.includes('söz');
+    if(pt==='TYT')return t.includes('tyt')||t==='2';
+    if(pt==='DİL')return t==='dil'||t.includes('dil');
+    return true;
+  });
+}
+function availableBolum(){return filterBolumByPuan(B,document.getElementById('fPuan').value)}
+
+function encodeIdSet(allIds,selectedSet){
+  const all=allIds.map(String);
+  if(!selectedSet.size||selectedSet.size>=all.length)return'';
+  const sel=[...selectedSet].map(String).filter(id=>all.includes(id));
+  if(!sel.length||sel.length>=all.length)return'';
+  const selSet=new Set(sel);
+  const excluded=all.filter(id=>!selSet.has(id));
+  const inc=sel.join(',');
+  const exc='h-'+excluded.join(',');
+  return inc.length<=exc.length?inc:exc;
+}
+function decodeIdSet(value,allIds){
+  if(!value)return new Set();
+  const all=allIds.map(String);
+  if(value.startsWith('h-'))return new Set(all.filter(id=>!new Set(value.slice(2).split(',').filter(Boolean)).has(id)));
+  return new Set(value.split(',').filter(Boolean));
+}
+
+function updateAllCheckboxes(){
+  const avUni=availableUniversities();
+  const avBolum=availableBolum();
+  document.getElementById('ckAllSehir').checked=sSehir.size>=C.length && C.length>0;
+  document.getElementById('ckAllUni').checked=avUni.length>0 && sUni.size>=avUni.length;
+  const cbB=document.getElementById('ckAllBolum'); if(cbB) cbB.checked=avBolum.length>0 && sBolum.size>=avBolum.length;
+}
+
+function applyUrlState(params){
+  urlApplying=true;
+  const g=(k,d='')=>params.get(k)??d;
+  const gb=(k,def)=>params.has(k)?params.get(k)!=='0':def;
+  document.getElementById('fPuan').value=g('pt','ALL');
+  document.getElementById('fMinS').value=g('min')?fmtNumValue(g('min')):'';
+  document.getElementById('fMaxS').value=g('max')?fmtNumValue(g('max')):'';
+  document.getElementById('fDev').checked=gb('dv',true);
+  document.getElementById('fVak').checked=gb('vk',true);
+  syncTypeOptions(false);
+  if(document.getElementById('fVak').checked){
+    if(params.has('bb'))document.getElementById('bBrs').checked=gb('bb',true);
+    if(params.has('b50'))document.getElementById('b50').checked=gb('b50',true);
+    if(params.has('b25'))document.getElementById('b25').checked=gb('b25',true);
+    if(params.has('bx'))document.getElementById('bUcret').checked=gb('bx',true);
+  }
+  document.getElementById('fYeni').checked=gb('yn',true);
+  document.getElementById('fDolm').checked=gb('dl',true);
+  document.getElementById('fKktc').checked=gb('kk',false);
+  document.getElementById('fMtok').checked=gb('mt',false);
+  document.getElementById('bolumSearch').value=g('bq');
+  sSehir=decodeIdSet(g('il'),cityIds());
+  sUni=decodeIdSet(g('un'),uniIds());
+  sBolum=decodeIdSet(g('bl'),availableBolum().map(b=>String(b.birim_grup_id)));
+  tableSettings.compact=gb('cmp',false);
+  tableSettings.hideLogos=gb('lg',false);
+  tableSettings.mobileTable=gb('mtbl',true);
+  tableSettings.sortBy=g('sb','bs')==='mp'?'mp':'bs';
+  tableSettings.sortDir=g('sd','asc')==='desc'?'desc':'asc';
+  document.getElementById('compactTable').checked=tableSettings.compact;
+  document.getElementById('hideLogos').checked=tableSettings.hideLogos;
+  const _mt=document.getElementById('mobileTableView'); if(_mt) _mt.checked=tableSettings.mobileTable;
+  document.getElementById('sortBy').value=tableSettings.sortBy;
+  P.page=Math.max(0,parseInt(g('p','0'),10)||0);
+  deepLinkKod=g('programkodu');
+  tercih=params.has('tl')?params.get('tl').split(',').filter(Boolean):[];
+  view=g('vw','')==='t'?'tercih':'search';
+  updateAllCheckboxes();
+  urlApplying=false;
+}
+
+function buildUrlParams(){
+  const p=new URLSearchParams();
+  const pt=document.getElementById('fPuan').value;
+  if(pt!=='ALL')p.set('pt',pt);
+  const min=document.getElementById('fMinS').value.replace(/\./g,'');
+  const max=document.getElementById('fMaxS').value.replace(/\./g,'');
+  if(min)p.set('min',min);
+  if(max)p.set('max',max);
+  if(!document.getElementById('fDev').checked)p.set('dv','0');
+  if(!document.getElementById('fVak').checked)p.set('vk','0');
+  if(document.getElementById('fVak').checked){
+    if(!document.getElementById('bBrs').checked)p.set('bb','0');
+    if(!document.getElementById('b50').checked)p.set('b50','0');
+    if(!document.getElementById('b25').checked)p.set('b25','0');
+    if(!document.getElementById('bUcret').checked)p.set('bx','0');
+  }
+  if(!document.getElementById('fYeni').checked)p.set('yn','0');
+  if(!document.getElementById('fDolm').checked)p.set('dl','0');
+  if(document.getElementById('fKktc').checked)p.set('kk','1');
+  if(document.getElementById('fMtok').checked)p.set('mt','1');
+  const bq=(document.getElementById('bolumSearch').value||'').trim();
+  if(bq)p.set('bq',bq);
+  const il=encodeIdSet(cityIds(),sSehir);if(il)p.set('il',il);
+  const un=encodeIdSet(availableUniversities().map(u=>String(u.universite_id)),sUni);if(un)p.set('un',un);
+  const bl=encodeIdSet(availableBolum().map(b=>String(b.birim_grup_id)),sBolum);if(bl)p.set('bl',bl);
+  if(tableSettings.compact)p.set('cmp','1');
+  if(tableSettings.hideLogos)p.set('lg','1');
+  if(!tableSettings.mobileTable)p.set('mtbl','0');
+  if(tableSettings.sortBy!=='bs')p.set('sb',tableSettings.sortBy);
+  if(tableSettings.sortDir!=='asc')p.set('sd',tableSettings.sortDir);
+  if(P.page>0)p.set('p',String(P.page));
+  if(deepLinkKod)p.set('programkodu',deepLinkKod);
+  if(tercih.length)p.set('tl',tercih.join(','));
+  if(view==='tercih')p.set('vw','t');
+  return p;
+}
+
+function syncUrl(){
+  if(urlApplying)return;
+  const qs=buildUrlParams().toString();
+  const url=qs?`${location.pathname}?${qs}`:location.pathname;
+  history.replaceState(null,'',url);
+  saveState();
+}
+
+function uniIds(){return availableUniversities().map(u=>String(u.universite_id))}
+
+function fmtNum(e){e.value=e.value.replace(/\D/g,'').replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+function F(n){if(n==null)return'-';const v=Number(n);return isNaN(v)?'-':v.toLocaleString('tr-TR')}
+function ys(p,f){const o=p.y||p.yearly;return o?.[f]||null}
+function applyTableSettings(){
+  const c=document.body.classList;
+  c.toggle('compact-table',tableSettings.compact);
+  c.toggle('compact-sort-puan',tableSettings.compact&&tableSettings.sortBy==='mp');
+  c.toggle('compact-sort-sira',tableSettings.compact&&tableSettings.sortBy==='bs');
+  c.toggle('mobile-table-view', !!tableSettings.mobileTable);
+  const mt=document.getElementById('mobileTableView');
+  if(mt) mt.checked=!!tableSettings.mobileTable;
+  const btn=document.getElementById('sortDirection');
+  btn.textContent=tableSettings.sortDir==='asc'?'▲':'▼';
+  btn.setAttribute('aria-label',tableSettings.sortDir==='asc'?'Artan sıralama':'Azalan sıralama');
+}
+function toggleCompactTable(on){tableSettings.compact=on;applyTableSettings();syncUrl()}
+function toggleHideLogos(on){tableSettings.hideLogos=on;syncUrl();if(view==='tercih')renderTercih();else{P.page=0;doSearch();}}
+function toggleMobileTable(on){tableSettings.mobileTable=on;applyTableSettings();syncUrl()}
+function changeSortBy(by){tableSettings.sortBy=by;tableSettings.sortDir=by==='mp'?'desc':'asc';applyTableSettings();syncUrl();P.page=0;doSearch()}
+function toggleSortDirection(){tableSettings.sortDir=tableSettings.sortDir==='asc'?'desc':'asc';applyTableSettings();syncUrl();P.page=0;doSearch()}
+
+async function init(){
+  const [ci,un,mt,gr,cu]=await Promise.all([
+    j('/api/cities'),j('/api/universities'),j('/api/metadata'),j('/api/program-groups'),j('/api/city-unis')
+  ]);
+  C=(ci||[]).sort((a,b)=>(a.il_adi||'').localeCompare(b.il_adi||'','tr'));
+  U=(un||[]).sort((a,b)=>(a.universite_adi||'').localeCompare(b.universite_adi||'','tr'));
+  B=(gr||[]).sort((a,b)=>(a.birim_grup_adi||'').localeCompare(b.birim_grup_adi||'','tr'));
+  cityUniMap=cu||{};
+  DY=mt?.displayYears||[window.YOK_ATLAS_DATA.lastFetchYear,window.YOK_ATLAS_DATA.lastFetchYear-1,window.YOK_ATLAS_DATA.lastFetchYear-2];
+  document.getElementById('yh1').textContent=DY.join(' | ');
+  document.getElementById('yh2').textContent=DY.join(' | ');
+  document.getElementById('yh3').textContent=DY.join(' | ');
+  if(location.search)applyUrlState(new URLSearchParams(location.search));
+  else{
+    const saved=getSavedState();
+    if(saved)applyUrlState(new URLSearchParams(saved));
+    else syncTypeOptions(true);
+  }
+  applyTableSettings();renderSehir();renderUni();renderBolum();updateViewTabs();
+  if(view==='tercih')renderTercih();else doSearch();
+  if(deepLinkKod)openDraw(deepLinkKod);
+}
+function j(u){return fetch(u).then(r=>r.json()).catch(()=>null)}
+
+function renderSehir(){
+  const q=(document.getElementById('sehirSearch')?.value||'').toLocaleLowerCase('tr-TR').trim();
+  let list=C;
+  if(q) list=list.filter(c=> (c.il_adi||'').toLocaleLowerCase('tr-TR').includes(q));
+  document.getElementById('lstSehir').innerHTML='<ul>'+list.map(c=>`<li><label><input type=checkbox value="${c.il_kodu}" ${sSehir.has(String(c.il_kodu))?'checked':''} onchange="sehirCk(${c.il_kodu},this.checked)">${c.il_adi}</label></li>`).join('')+'</ul>';
+}
+
+function availableUniversities(){
+  let list=U;
+  const types=[];
+  if(document.getElementById('fDev').checked)types.push('DEVLET');
+  if(document.getElementById('fVak').checked)types.push('VAKIF');
+  list=list.filter(u=>types.includes(u.universite_turu));
+  if(sSehir.size>0){
+    const uids=new Set();
+    [...sSehir].forEach(il=>{(cityUniMap[il]||[]).forEach(id=>uids.add(id))});
+    list=list.filter(u=>uids.has(u.universite_id));
+  }
+  return list;
+}
+function renderUni(){
+  let list=availableUniversities();
+  const q=(document.getElementById('uniSearch')?.value||'').toLocaleLowerCase('tr-TR').trim();
+  if(q) list=list.filter(u=> (u.universite_adi||'').toLocaleLowerCase('tr-TR').includes(q));
+  const visibleIds=new Set(availableUniversities().map(u=>String(u.universite_id)));
+  [...sUni].forEach(id=>{if(!visibleIds.has(id))sUni.delete(id)});
+  document.getElementById('lstUni').innerHTML='<ul>'+list.map(u=>`<li><label><input type=checkbox value="${u.universite_id}" ${sUni.has(String(u.universite_id))?'checked':''} onchange="uniCk(${u.universite_id},this.checked)">${u.universite_adi}</label></li>`).join('')+'</ul>';
+}
+
+function renderBolum(){
+  const avIds=new Set(availableBolum().map(b=>String(b.birim_grup_id)));
+  ;[...sBolum].forEach(id=>{if(!avIds.has(id)) sBolum.delete(id)});
+  const q=(document.getElementById('bolumSearch')?.value||'').toLocaleLowerCase('tr-TR').trim();
+  let f=availableBolum();
+  if(q)f=f.filter(b=>(b.birim_grup_adi||'').toLocaleLowerCase('tr-TR').includes(q)||(b.puan_turu||'').toLocaleLowerCase('tr-TR').includes(q));
+  document.getElementById('lstBolum').innerHTML='<ul>'+f.map(b=>{
+    const kd=DY.map(y=>{const v=b.kontenjan_yillar?.[y];return`${y}: ${v!=null?v.toLocaleString('tr-TR'):'--'}`}).join(' ');
+    return`<li style="flex-direction:column;align-items:flex-start;padding:3px 5px"><label><input type=checkbox value="${b.birim_grup_id}" ${sBolum.has(String(b.birim_grup_id))?'checked':''} onchange="bolumCk(${b.birim_grup_id},this.checked)"><b>${b.birim_grup_adi||''}</b></label><span style="font-size:9px;color:#000;margin-left:17px">${b.puan_turu||''} — ${kd}</span></li>`;
+  }).join('')+'</ul>';
+  updateAllCheckboxes();
+}
+
+function sehirCk(id,on){on?sSehir.add(String(id)):sSehir.delete(String(id));updateAllCheckboxes();renderUni();syncUrl()}
+function uniCk(id,on){on?sUni.add(String(id)):sUni.delete(String(id));updateAllCheckboxes();syncUrl()}
+function bolumCk(id,on){on?sBolum.add(String(id)):sBolum.delete(String(id));updateAllCheckboxes();syncUrl()}
+function syncTypeOptions(syncFree=false){
+  const dev=document.getElementById('fDev').checked,vak=document.getElementById('fVak').checked;
+  const set=(id,on)=>{const el=document.getElementById(id);el.hidden=!on;el.querySelector('input').disabled=!on};
+  set('optUcr',dev);
+  const ucretsiz=document.getElementById('bUcr');
+  if(syncFree)ucretsiz.checked=dev;
+  ucretsiz.disabled=false;
+  ['optBrs','opt50','opt25','optUcret'].forEach(id=>set(id,vak));
+}
+function typeCk(){syncTypeOptions(true);renderUni();syncUrl()}
+function freeCk(on){
+  document.getElementById('fDev').checked=on;
+  syncTypeOptions(false);renderUni();syncUrl();
+}
+function toggleAllSehir(on){
+  if(on)C.forEach(c=>sSehir.add(String(c.il_kodu)));else sSehir.clear();
+  document.getElementById('ckAllSehir').checked=on;renderSehir();renderUni();syncUrl();
+}
+function toggleAllUni(on){
+  if(on){availableUniversities().forEach(u=>sUni.add(String(u.universite_id)));}
+  else sUni.clear();
+  document.getElementById('ckAllUni').checked=on;renderUni();syncUrl();
+}
+function toggleAllBolum(on){
+  if(on){availableBolum().forEach(b=>sBolum.add(String(b.birim_grup_id)));}
+  else sBolum.clear();
+  renderBolum();
+  const cb=document.getElementById('ckAllBolum'); if(cb) cb.checked=on;
+  syncUrl();
+}
+
+let tmr;
+function doSearch(){
+  if(view!=='search'){setView('search');return;}
+  clearTimeout(tmr);tmr=setTimeout(_doSearch,250);
+}
+function updateViewTabs(){
+  document.getElementById('vwSearch').classList.toggle('active',view!=='tercih');
+  document.getElementById('vwTercih').classList.toggle('active',view==='tercih');
+  document.getElementById('tlCount').textContent='('+tercih.length+')';
+  document.getElementById('clearListBtn').style.display=view==='tercih'?'':'none';
+}
+function setView(v){
+  view=v;
+  updateViewTabs();
+  if(v==='tercih'){renderTercih();syncUrl();}
+  else{P.page=0;doSearch();}
+}
+function shareUrl(btn){
+  const url=location.href;
+  const done=()=>{
+    const old=btn.textContent;
+    btn.textContent='Kopyalandı';
+    btn.style.background='#22c55e';btn.style.color='#fff';
+    setTimeout(()=>{btn.textContent=old;btn.style.background='';btn.style.color='';},1500);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(done).catch(()=>fallbackCopy(url,done));
+  else fallbackCopy(url,done);
+}
+function fallbackCopy(text,cb){
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');cb()}catch(e){}
+  document.body.removeChild(ta);
+}
+function printList(){
+  const win=window.open('','_blank','width=1000,height=800');
+  if(!win){alert('Yazdırma penceresi açılamadı.');return}
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ÜnivAtlas - ${view==='tercih'?'Tercih Listem':'Bölüm Listesi'}</title><style>@page{margin:8px}body{font-family:Arial,Helvetica,sans-serif;font-size:6px;color:#000;margin:0;padding:0}table{width:100%;border-collapse:collapse;font-size:6px}th,td{border:.5px solid #ccc;padding:0 1px;text-align:center;vertical-align:middle;line-height:7px}th{background:#eee;font-weight:700;font-size:5px}td.l,th.l{text-align:left}h2{margin:0 0 0;font-size:8px}h4{margin:0 0 1px;color:#555;font-weight:400;font-size:6px}.yr{white-space:nowrap}.yr-row{display:block;line-height:7px;font-family:'Courier New',monospace;font-weight:700;font-size:6px}.yr-y{display:inline-block;width:22px;font-size:5px;color:#666;background:#eee;padding:0;border:.5px solid #ccc}.yr-v{display:inline-block;text-align:right;padding:0 1px;border:.5px solid #ccc;border-left:0;min-width:22px;font-size:5px}.l-flex{display:flex;align-items:center;gap:1px}.bname,.bname-sub,.uname,.uname-sub{display:block;overflow:visible;max-width:none;white-space:normal;line-height:7px}.bname,.uname{font-size:6px;font-weight:700}.bname-sub,.uname-sub{font-size:5px;color:#888}.badge{display:none}.kosul-sub{display:none}.kosul-main{display:inline;font-size:5px}.tl-cell{display:none}th:first-child{display:none}@media print{.tl-cell{display:none}th:first-child{display:none}}</style></head><body>${printHtml()}</body></html>`);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>win.print(),250);
+}
+function printHtml(){
+  const raw=document.getElementById('tb').innerHTML;
+  const tb=raw.replace(/<img[^>]*>/gi,'');
+  const header=view==='tercih'?'Tercih Listesi':'Bölüm Listesi';
+  const title='ÜnivAtlas — '+header;
+  const info=document.getElementById('infoBar').textContent||'';
+  let html=`<h2>${title}</h2><h4>${info} • ${new Date().toLocaleString('tr-TR')}</h4>`;
+  html+='<table><thead><tr><th class="f" style="width:40px"></th><th>#</th><th class="l">Üniversite</th><th class="l">Bölüm</th><th>Sıralama</th><th>Puan</th><th>Kontenjan</th><th class="f">Koş.</th><th class="f">AKRDT</th><th class="f">TYÇ</th></tr></thead>';
+  html+=tb.replace(/<tr/g,'<tr');
+  html+='</table>';
+  return html;
+}
+function clearTercih(){
+  if(!confirm('Tercih listesindeki tüm programlar silinsin mi?'))return;
+  tercih=[];
+  updateViewTabs();syncUrl();renderTercih();
+}
+
+async function _doSearch(){
+  const ms=document.getElementById('fMinS').value.replace(/\./g,'');
+  const mx=document.getElementById('fMaxS').value.replace(/\./g,'');
+  const body={
+    puanTuru:document.getElementById('fPuan').value,
+    devlet:document.getElementById('fDev').checked, vakif:document.getElementById('fVak').checked,
+    bursUcretsiz:document.getElementById('fDev').checked,
+    bursBurslu:document.getElementById('fVak').checked&&document.getElementById('bBrs').checked,
+    burs50:document.getElementById('fVak').checked&&document.getElementById('b50').checked,
+    burs25:document.getElementById('fVak').checked&&document.getElementById('b25').checked,
+    bursUcretli:document.getElementById('fVak').checked&&document.getElementById('bUcret').checked,
+    yeni:document.getElementById('fYeni').checked, dolmamis:document.getElementById('fDolm').checked,
+    kktc:document.getElementById('fKktc').checked,
+    mtok:document.getElementById('fMtok').checked,
+    iller:[...sSehir], universiteler:[...sUni], bolumler:[...sBolum],
+    minSir:ms?+ms:null, maxSir:mx?+mx:null,
+    sortBy:tableSettings.sortBy, sortDir:tableSettings.sortDir,
+    page:P.page, size:100
+  };
+  document.getElementById('tb').innerHTML='<tr><td colspan=10 style="padding:14px;color:#999">Yükleniyor...</td></tr>';
+  const res=await fetch('/api/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json());
+  DY=res.years||DY;
+  P.elems=res.totalElements;P.total=res.totalPages;
+  document.getElementById('yh1').textContent=DY.join(' | ');
+  document.getElementById('yh2').textContent=DY.join(' | ');
+  document.getElementById('yh3').textContent=DY.join(' | ');
+  document.getElementById('infoBar').textContent=`${P.elems.toLocaleString('tr-TR')} program - Sayfa ${P.page+1}/${Math.max(1,P.total)}`;
+  renderTable(res.content);renderPager();syncUrl();
+}
+
+function yrTbl(p,field){
+  let h='<div class="yr">';
+  for(const y of DY){
+    const s=ys(p,y);const v=s?.[field];
+    let txt=v==null?'-':field==='mp'?(v==0?'-':Number(v).toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})):F(v);
+    h+=`<span class="yr-row"><span class="yr-y">${y}</span><span class="yr-v">${txt}</span></span>`;
+  }
+  return h+'</div>';
+}
+
+function renderTable(rows){
+  const tb=document.getElementById('tb');
+  if(!rows?.length){tb.innerHTML='<tr><td colspan=10 style="padding:16px;color:#999">Sonuç bulunamadı</td></tr>';return}
+  const ly=DY[0];
+  const startIdx=P.page*100;
+  tb.innerHTML=rows.map((p,i)=>{
+    const ls=ys(p,ly);
+    const hasPrevYear=DY.length>1&&p.y?.[String(DY[1])];
+    const isNew=ls&&ls.mp==null&&ls.bs==null&&!hasPrevYear;
+    const inT=tercih.includes(p.k);
+    return`<tr onclick="openDraw('${p.k}')" class="${p.ut==='DEVLET'?'card-devlet':'card-vakif'}">
+      <td class="tl-cell" onclick="event.stopPropagation()"><label class="tl-ck"><input type="checkbox" ${inT?'checked':''} onchange="toggleTercih('${p.k}',this.checked)"></label></td>
+      <td style="font-family:'Courier New',monospace;font-weight:700;font-size:11px">${startIdx+i+1}</td>
+      <td class="l"><div class="l-flex ${p.ut==='DEVLET'?'uni-devlet':'uni-vakif'}">${!tableSettings.hideLogos&&logoSrc(p.ui)?`<img class="uni-logo" src="${logoSrc(p.ui)}" onerror="logoErr(${p.ui});this.style.display='none'" loading="lazy">`:''}<div><span class="uname">${p.ua||''}</span><span class="uname-sub">${p.uai||''}</span></div></div></td>
+      <td class="l"><span class="bname">${p.bi||''}</span><span class="bname-sub">${p.os?p.os+' Yıl':''} ${p.pt||''} ${p.fa||''}</span></td>
+      <td class="sort-rank">${isNew?'<span style="color:#0ea5e9;font-weight:700">Yeni</span>':yrTbl(p,'bs')}</td>
+      <td class="sort-score">${isNew?'<span style="color:#0ea5e9;font-weight:700">Yeni</span>':yrTbl(p,'mp')}</td>
+      <td>${yrTbl(p,'kn')}</td>
+      <td class="compact-hide" style="font-size:9px"><span class="kosul-main">${p.ks||'-'}</span><span class="kosul-sub">AKRDT: ${p.akr?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}&nbsp;&nbsp;TYÇ: ${p.tyc?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}</span></td>
+      <td class="compact-hide">${p.akr?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}</td>
+      <td class="compact-hide">${p.tyc?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderPager(){
+  const el=document.getElementById('pager');
+  if(P.total<=1){el.innerHTML='';return}
+  let h=`<button ${P.page===0?'disabled':''} onclick="go(${P.page-1})">‹</button>`;
+  const m=7;let s=Math.max(0,P.page-3),e=Math.min(P.total-1,s+m-1);s=Math.max(0,e-m+1);
+  if(s>0)h+=`<button onclick="go(0)">1</button>`+(s>1?'<span>…</span>':'');
+  for(let i=s;i<=e;i++)h+=`<button class="${i===P.page?'active':''}" onclick="go(${i})">${i+1}</button>`;
+  if(e<P.total-1)h+=(e<P.total-2?'<span>…</span>':'')+`<button onclick="go(${P.total-1})">${P.total}</button>`;
+  h+=`<button ${P.page===P.total-1?'disabled':''} onclick="go(${P.page+1})">›</button>`;
+  el.innerHTML=h;
+}
+function go(n){if(n<0||n>=P.total)return;P.page=n;doSearch();window.scrollTo({top:0,behavior:'smooth'})}
+
+function toggleTercih(code,on){
+  if(on){if(!tercih.includes(code))tercih.push(code)}
+  else tercih=tercih.filter(k=>k!==code);
+  updateViewTabs();syncUrl();
+}
+function moveTercih(code,dir){
+  const idx=tercih.indexOf(code);
+  if(idx<0)return;
+  const ni=idx+dir;
+  if(ni<0||ni>=tercih.length)return;
+  const a=tercih.slice();
+  a.splice(idx,1);a.splice(ni,0,code);
+  tercih=a;
+  syncUrl();renderTercih();
+}
+function removeTercih(code){
+  tercih=tercih.filter(k=>k!==code);
+  updateViewTabs();syncUrl();renderTercih();
+}
+function dragStart(e,kod){dragFromKod=kod;try{e.dataTransfer.setData('text/plain','')}catch(_){}e.dataTransfer.effectAllowed='move';e.target.closest('tr').classList.add('dragging')}
+function dragOver(e){if(!dragFromKod)return;e.preventDefault();e.dataTransfer.dropEffect='move'}
+function dragEnd(e){e.target.closest('tr').classList.remove('dragging');dragFromKod=null}
+function dragDrop(e,kod){
+  e.preventDefault();e.stopPropagation();
+  e.target.closest('tr')?.classList.remove('dragging');
+  const from=tercih.indexOf(dragFromKod),to=tercih.indexOf(kod);
+  dragFromKod=null;
+  if(from<0||to<0||from===to)return;
+  const a=tercih.slice();
+  a.splice(from,1);a.splice(to,0,tercih[from]);
+  tercih=a;
+  syncUrl();renderTercih();
+}
+
+let tRenderId=0;
+async function renderTercih(){
+  const tid=++tRenderId;
+  const tb=document.getElementById('tb');
+  document.getElementById('pager').innerHTML='';
+  const list=[...tercih];
+  if(!list.length){
+    tb.innerHTML='<tr><td colspan=10 style="padding:16px;color:#999">Tercih listesi boş. Sonuçlarda programların başındaki kutuyu işaretleyerek ekleyin.</td></tr>';
+    document.getElementById('infoBar').textContent='Tercih listesi: 0 program';
+    return;
+  }
+  tb.innerHTML='<tr><td colspan=10 style="padding:14px;color:#999">Yükleniyor...</td></tr>';
+  const items=await Promise.all(list.map(k=>j('/api/program/'+k)));
+  if(tid!==tRenderId)return;
+  const rows=items.filter(x=>x&&!x.error&&x.kilavuzKodu);
+  if(!rows.length){
+    tb.innerHTML='<tr><td colspan=10 style="padding:16px;color:#999">Tercih listesi boş.</td></tr>';
+    document.getElementById('infoBar').textContent='Tercih listesi: 0 program';
+    return;
+  }
+  const ly=DY[0];
+  document.getElementById('infoBar').textContent='Tercih listesi: '+tercih.length+' program — tercih sırasına göre';
+  tb.innerHTML=rows.map((p,i)=>{
+    const ls=ys(p,ly);
+    const hasPrevYear=DY.length>1&&ys(p,String(DY[1]));
+    const isNew=ls&&ls.mp==null&&ls.bs==null&&!hasPrevYear;
+    const code=String(p.kilavuzKodu||p.k);
+    return`<tr class="drag-row ${p.universiteTuru==='DEVLET'?'card-devlet':'card-vakif'}" draggable="true" ondragstart="dragStart(event,'${code}')" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="dragDrop(event,'${code}')" onclick="openDraw('${code}')">
+      <td class="tl-cell" onclick="event.stopPropagation()">
+        <div class="tl-arrows">
+          <button class="tl-ar" onclick="moveTercih('${code}',-1)" ${i===0?'disabled':''} title="Yukarı taşı">▲</button>
+          <button class="tl-ar" onclick="moveTercih('${code}',1)" ${i===rows.length-1?'disabled':''} title="Aşağı taşı">▼</button>
+          <button class="tl-ar tl-x" onclick="removeTercih('${code}')" title="Listeden çıkar">&times;</button>
+        </div>
+      </td>
+      <td style="font-family:'Courier New',monospace;font-weight:700;font-size:11px">${i+1}</td>
+      <td class="l"><div class="l-flex ${p.universiteTuru==='DEVLET'?'uni-devlet':'uni-vakif'}">${!tableSettings.hideLogos&&logoSrc(p.ui)?`<img class="uni-logo" src="${logoSrc(p.ui)}" onerror="logoErr(${p.ui});this.style.display='none'" loading="lazy">`:''}<div><span class="uname">${p.universiteAdi||''}</span><span class="uname-sub">${p.uniIlAdi||''}</span></div></div></td>
+      <td class="l"><span class="bname">${p.birimAdi||''}</span><span class="bname-sub">${p.ogrenimSuresi?p.ogrenimSuresi+' Yıl':''} ${p.puanTuru||''} ${p.fymkAdi||''}</span></td>
+      <td class="sort-rank">${isNew?'<span style="color:#0ea5e9;font-weight:700">Yeni</span>':yrTbl(p,'bs')}</td>
+      <td class="sort-score">${isNew?'<span style="color:#0ea5e9;font-weight:700">Yeni</span>':yrTbl(p,'mp')}</td>
+      <td>${yrTbl(p,'kn')}</td>
+      <td class="compact-hide" style="font-size:9px"><span class="kosul-main">${p.kosul||'-'}</span><span class="kosul-sub">AKRDT: ${p.akreditasyon?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}&nbsp;&nbsp;TYÇ: ${p.tyc?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}</span></td>
+      <td class="compact-hide">${p.akreditasyon?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}</td>
+      <td class="compact-hide">${p.tyc?'<span class="ck-check">✓</span>':'<span class="ck-x">-</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function openDraw(kod){
+  const box=document.getElementById('dbox');
+  box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Yükleniyor...</div>';
+  document.getElementById('dmask').classList.add('open');
+  const p=await fetch('/api/program/'+kod).then(r=>r.json()).catch(()=>null);
+  if(!p||p.error||!p.kilavuzKodu){box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Bilinmeyen program</div><div style="text-align:center;padding-bottom:20px"><button class="x" style="position:static" onclick="closeDraw()">Kapat</button></div>';return}
+  const yil=DY[0];
+  const s=p.yearly?.[String(yil)];
+  const uni=p.universiteAdi||'';
+  const bol=p.birimAdi||'';
+  const sira=s?.bs?F(s.bs):'';
+  const puan=s?.mp?Number(s.mp).toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';
+  const desc=`${uni} ${bol} bölümü ${yil} YKS taban puanı, başarı sıralaması${sira?' ('+sira+')':''}${puan?' puanı: '+puan:''}. Kontenjan ve yerleşen bilgileri. Ücretsiz, online tercih aracı.`;
+  document.title=`${uni} ${bol} - ${yil} YKS Sıralama & Puan | ÜnivAtlas`;
+  const setMeta=(n,c)=>{const el=document.querySelector(`meta[name="${n}"]`);if(el)el.content=c};
+  const setOg=(n,c)=>{const el=document.querySelector(`meta[property="${n}"]`);if(el)el.content=c};
+  setMeta('description',desc);
+  setOg('og:title',document.title);
+  setOg('og:description',desc);
+  const kl=p.kosulList||p.yearly?.[String(yil)]?.kosulList;
+  box.innerHTML=`<button class="x" onclick="closeDraw()">Kapat</button>
+    ${!tableSettings.hideLogos&&logoSrc(p.ui)?`<img class="uni-logo-big" src="${logoSrc(p.ui)}" onerror="logoErr(${p.ui});this.style.display='none'" loading="lazy">`:''}
+    <h2>${p.universiteAdi||''}</h2>
+    <div style="font-size:11px;color:#888">${p.fymkAdi||''} — ${p.ilAdi||''}${p.ilceAdi?' / '+p.ilceAdi:''}</div>
+    <h2 style="margin-top:4px;color:var(--red)">${p.birimAdi||''}</h2>
+    <div style="font-size:14px;margin-top:6px;font-weight:700;font-family:'Courier New',monospace">Program Kodu: ${p.kilavuzKodu} <button onclick="copyKod('${p.kilavuzKodu}',this)" style="background:none;border:1px solid #ccc;border-radius:3px;cursor:pointer;padding:0 6px;font-size:12px" title="Kopyala">&#128203;</button></div>
+    <div style="font-size:11px;margin-top:4px">${[p.puanTuru,p.ogrenimSuresi?p.ogrenimSuresi+' yıl':'',p.ogrenimDiliAdi].filter(Boolean).join(' • ')}</div>
+    <div style="font-size:11px;margin-top:2px">Tür: <b>${p.universiteTuru||'-'}</b>${p.universiteTuru!=='DEVLET'?' • Burs: <b>'+(p.bursOraniAdi||'-')+'</b>':''}</div>
+    <div style="font-size:11px;margin-top:2px">Akreditasyon: <b>${p.akreditasyon||'Yok'}</b> • TYÇ: <b>${p.tyc?'Var':'Yok'}</b></div>
+     <h3>Kontenjan & Yerleşen</h3>
+    ${DY.map(y=>{const s=p.yearly?.[String(y)];const noData=!s||((s.kn==null||s.kn==='')&&(s.yl==null||s.yl===''));if(noData)return`<div class="kv"><b>${y}-YKS</b><span style="color:#0ea5e9">Veri yok</span></div>`;const k=s.kn!=null&&s.kn!==''?F(s.kn):'-';const yl=s.yl!=null&&s.yl!==''?` Yerleşen: ${F(s.yl)}`:'';return`<div class="kv"><b>${y}-YKS</b><span>Kont: ${k}${yl}</span></div>`}).join('')}
+     <h3>Taban Puan & Sıralama</h3>
+    ${DY.map(y=>{const s=p.yearly?.[String(y)];const puanVar=s&&s.mp!=null&&s.mp!==''&&Number(s.mp)!==0;const siraVar=s&&s.bs!=null&&s.bs!==''&&Number(s.bs)!==0;const noData=!puanVar&&!siraVar;return`<div class="kv"><b>${y}-YKS</b><span style="color:${noData?'#0ea5e9':'inherit'}">${noData?'Veri yok':'Puan: '+(puanVar?Number(s.mp).toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2}):'-')+' • Sıra: '+(siraVar?F(s.bs):'-')}</span></div>`}).join('')}
+    <h3>Son Kişinin Netleri</h3>
+     ${DY.map(y=>{const s=p.yearly?.[String(y)];if(!s)return'';const f=n=>n!=null?Number(n).toFixed(2):'-';
+    const hasNets=s.tytTrkNet!=null;if(!hasNets)return'';
+    const dipNot=s.obp!=null?(Number(s.obp)/5).toFixed(2):null;
+    const pt=p.puanTuru||'';
+    const pill=(l,v)=>`<span class="net-pill">${l} <b>${f(v)}</b></span>`;
+    const sumVals=(...vals)=>{let s=0; let has=false; for(const v of vals){if(v!=null&&v!=='' ){s+=Number(v); has=true;}} return has? s.toFixed(2) : '-';};
+    const tytToplam=sumVals(s.tytTrkNet,s.tytSosNet,s.tytMatNet,s.tytFenNet);
+    let aytToplam='-'; let ydtToplam='-';
+    let groups=`<div class="nets-group"><span class="nets-group-title">TYT</span><div>${pill('Türkçe',s.tytTrkNet)}${pill('Sosyal',s.tytSosNet)}${pill('Matematik',s.tytMatNet)}${pill('Fen',s.tytFenNet)}</div></div>`;
+    if(pt==='SAY'){ aytToplam=sumVals(s.aytMatNet,s.aytFizNet,s.aytKimNet,s.aytBioNet); groups+=`<div class="nets-group"><span class="nets-group-title">AYT • SAY</span><div>${pill('Matematik',s.aytMatNet)}${pill('Fizik',s.aytFizNet)}${pill('Kimya',s.aytKimNet)}${pill('Biyoloji',s.aytBioNet)}</div></div>`; }
+    else if(pt==='EA'){ aytToplam=sumVals(s.aytMatNet,s.aytTdeNet,s.aytTrh1Net,s.aytCog1Net); groups+=`<div class="nets-group"><span class="nets-group-title">AYT • EA</span><div>${pill('Matematik',s.aytMatNet)}${pill('Türk Dili ve Edebiyatı',s.aytTdeNet)}${pill('Tarih-1',s.aytTrh1Net)}${pill('Coğrafya-1',s.aytCog1Net)}</div></div>`; }
+    else if(pt==='SÖZ'){ aytToplam=sumVals(s.aytTdeNet,s.aytTrh1Net,s.aytCog1Net,s.aytTrh2Net,s.aytCog2Net,s.aytFelNet,s.aytDinNet); groups+=`<div class="nets-group"><span class="nets-group-title">AYT • SÖZ</span><div>${pill('Türk Dili ve Edebiyatı',s.aytTdeNet)}${pill('Tarih-1',s.aytTrh1Net)}${pill('Coğrafya-1',s.aytCog1Net)}${pill('Tarih-2',s.aytTrh2Net)}${pill('Coğrafya-2',s.aytCog2Net)}${pill('Felsefe',s.aytFelNet)}${pill('Din Kültürü',s.aytDinNet)}</div></div>`; }
+    else if(pt==='DİL'){ ydtToplam=f(s.ydtYdilNet); groups+=`<div class="nets-group"><span class="nets-group-title">YDT</span><div>${pill('Yabancı Dil',s.ydtYdilNet)}</div></div>`; }
+    let toplamParts=[];
+    toplamParts.push(`<span>Toplam TYT: <b>${tytToplam}</b></span>`);
+    if(pt==='DİL'){ if(ydtToplam!=='-') toplamParts.push(`<span>YDT: <b>${ydtToplam}</b></span>`); }
+    else { if(aytToplam!=='-') toplamParts.push(`<span>Toplam AYT: <b>${aytToplam}</b></span>`); }
+    if(dipNot!=null) toplamParts.push(`<span>Diploma Notu: <b>${dipNot}</b></span>`);
+    let toplamBar=`<div style="display:flex;flex-wrap:wrap;gap:12px;padding:6px 10px;background:#f1f5f9;border-top:1px solid #e2e8f0;font-size:11px;font-weight:700;color:#0f172a">${toplamParts.join('')}</div>`;
+    return`<div class="nets"><div class="nets-head"><span class="nets-year">${y}-YKS</span></div><div class="nets-grid">${groups}</div>${toplamBar}</div>`}).filter(Boolean).join('')||'<div style="font-size:11px;color:#999">Net verisi yok</div>'}
+     ${`<h3>Özel Koşullar (${DY[0]})</h3>` + (kl && ((Array.isArray(kl) && kl.length>0) || (!Array.isArray(kl) && String(kl).trim()!=='')) ? `<div style="font-size:10px;white-space:pre-wrap;background:#f5f5f5;border:1px solid var(--border);border-radius:3px;padding:6px;max-height:250px;overflow:auto">${Array.isArray(kl)?kl.map(k=>typeof k==='object'?Object.entries(k).map(([c,d])=>'['+c+'] '+d).join('\n'):String(k)).join('\n\n'):String(kl)}</div>` : `<div style="font-size:11px;color:#999;background:#f5f5f5;border:1px solid var(--border);border-radius:3px;padding:8px;text-align:center">Özel koşul yok</div>`)}`;
+  document.getElementById('dmask').classList.add('open');
+}
+function closeDraw(){
+  document.getElementById('dmask').classList.remove('open');
+  document.title='ÜnivAtlas';
+  const def='__YEAR__ YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.';
+  const m=document.querySelector('meta[name="description"]');if(m)m.content=def;
+  const o=document.querySelector('meta[property="og:title"]');if(o)o.content='ÜnivAtlas - __YEAR__ YKS Tercih Rehberi';
+  const d=document.querySelector('meta[property="og:description"]');if(d)d.content='Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.';
+  if(deepLinkKod){deepLinkKod='';syncUrl()}
+}
+function copyKod(kod,btn){
+  navigator.clipboard.writeText(String(kod)).then(()=>{
+    btn.innerHTML='&#10003;';
+    btn.style.background='#22c55e';btn.style.color='#fff';btn.style.borderColor='#22c55e';
+    setTimeout(()=>{btn.innerHTML='&#128203;';btn.style.background='';btn.style.color='';btn.style.borderColor='#ccc';},1500);
+  });
+}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('sw.js', document.baseURI)).then(reg => {
+  reg.active?.postMessage({ type:'YOK_ATLAS_DATA_VERSION', version:window.YOK_ATLAS_DATA.version });
+});
+window.addEventListener('popstate',()=>{
+  if(!C.length)return;
+  applyUrlState(new URLSearchParams(location.search));
+  syncTypeOptions(false);applyTableSettings();renderSehir();renderUni();renderBolum();updateViewTabs();
+  if(view==='tercih')renderTercih();else doSearch();
+});
+init();
+</script>
+
+</body>
+</html>
