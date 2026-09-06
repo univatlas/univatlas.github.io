@@ -308,7 +308,7 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   <div class="card-title">ALAN ve SIRALAMA</div>
   <div class="card-body">
     <div class="alan-row">
-      <select id="fPuan" onchange="renderBolum();syncUrl()">
+      <select id="fPuan" onchange="if(document.getElementById('ckAllBolum')?.checked){availableBolum().forEach(b=>sBolum.add(String(b.birim_grup_id)));}renderBolum();syncUrl()">
         <option value="ALL">TÜM PUAN TÜRLERİ</option>
         <option value="TYT">TYT</option>
         <option value="SAY">SAYISAL</option>
@@ -712,7 +712,13 @@ function syncTypeOptions(syncFree=false){
   ucretsiz.disabled=false;
   ['optBrs','opt50','opt25','optUcret'].forEach(id=>set(id,vak));
 }
-function typeCk(){syncTypeOptions(true);renderUni();syncUrl()}
+function typeCk(){
+  syncTypeOptions(true);
+  if(document.getElementById('ckAllUni').checked){
+    availableUniversities().forEach(u=>sUni.add(String(u.universite_id)));
+  }
+  renderUni();syncUrl();
+}
 function freeCk(on){
   document.getElementById('fDev').checked=on;
   syncTypeOptions(false);renderUni();syncUrl();
@@ -984,6 +990,7 @@ async function openDraw(kod){
     <div style="font-size:11px;margin-top:4px">${[p.puanTuru,p.ogrenimSuresi?p.ogrenimSuresi+' yıl':'',p.ogrenimDiliAdi].filter(Boolean).join(' • ')}</div>
     <div style="font-size:11px;margin-top:2px">Tür: <b>${p.universiteTuru||'-'}</b>${p.universiteTuru!=='DEVLET'?' • Burs: <b>'+(p.bursOraniAdi||'-')+'</b>':''}</div>
     <div style="font-size:11px;margin-top:2px">Akreditasyon: <b>${p.akreditasyon||'Yok'}</b> • TYÇ: <b>${p.tyc?'Var':'Yok'}</b></div>
+    <button onclick="openMaps('${(p.universiteAdi||'').replace(/'/g,"\\'")}','${(p.fymkAdi||'').replace(/'/g,"\\'")}')" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${mapsLabel(p.fymkAdi)}</button>
      <h3>Kontenjan & Yerleşen</h3>
     ${DY.map(y=>{const s=p.yearly?.[String(y)];const noData=!s||((s.kn==null||s.kn==='')&&(s.yl==null||s.yl===''));if(noData)return`<div class="kv"><b>${y}-YKS</b><span style="color:#0ea5e9">Veri yok</span></div>`;const k=s.kn!=null&&s.kn!==''?F(s.kn):'-';const yl=s.yl!=null&&s.yl!==''?` Yerleşen: ${F(s.yl)}`:'';return`<div class="kv"><b>${y}-YKS</b><span>Kont: ${k}${yl}</span></div>`}).join('')}
      <h3>Taban Puan & Sıralama</h3>
@@ -1027,6 +1034,22 @@ function copyKod(kod,btn){
     btn.style.background='#22c55e';btn.style.color='#fff';btn.style.borderColor='#22c55e';
     setTimeout(()=>{btn.innerHTML='&#128203;';btn.style.background='';btn.style.color='';btn.style.borderColor='#ccc';},1500);
   });
+}
+function trTitleCase(s){
+  return s.toLocaleLowerCase('tr-TR').replace(/(^|\s)[a-zçğıöşü]/g,c=>c.toLocaleUpperCase('tr-TR'));
+}
+function mapsLabel(fakulte){
+  const t=(fakulte||'').toLocaleUpperCase('tr-TR');
+  if(t.includes('MESLEK YÜKSEKOKUL'))return"MYO'yu Haritalarda Göster";
+  if(t.includes('FAKÜLTE'))return'Fakülteyi Haritalarda Göster';
+  if(t.includes('YÜKSEKOKUL'))return'Yüksekokulu Haritalarda Göster';
+  if(t.includes('ENSTİTÜ'))return'Enstitüyü Haritalarda Göster';
+  return'Haritalarda Göster';
+}
+function openMaps(uni,fakulte){
+  const cleanUni=uni.replace(/\s*\([^)]*\)\s*/g,' ').trim();
+  const q=trTitleCase(cleanUni+' '+fakulte);
+  window.open('https://www.google.com/maps/search/'+encodeURIComponent(q),'_blank');
 }
 if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('sw.js', document.baseURI)).then(reg => {
   reg.active?.postMessage({ type:'YOK_ATLAS_DATA_VERSION', version:window.YOK_ATLAS_DATA.version });
