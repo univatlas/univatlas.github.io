@@ -990,7 +990,7 @@ async function openDraw(kod){
     const yd=urap[uy];
     const arr=yd.r||[];
     const found=arr.find(x=>x[0]===p.ui);
-    if(found) urapLine+=`<div style="font-size:11px;margin-top:2px">URAP ${uy} Sıralaması: <span style="color:${urapColor(found[1],yd.total)};font-weight:700">${found[1]}/${yd.total}</span></div>`;
+    if(found) urapLine+=`<div style="font-size:11px;margin-top:2px"><a href="https://newtr.urapcenter.org/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">URAP ${uy} Sıralaması</a>: <span style="color:${urapColor(found[1],yd.total)};font-weight:700">${found[1]}/${yd.total}</span></div>`;
   }
   box.innerHTML=`<button class="x" onclick="closeDraw()">Kapat</button>
     ${!tableSettings.hideLogos&&logoSrc(p.ui)?`<img class="uni-logo-big" src="${logoSrc(p.ui)}" onerror="logoErr(${p.ui});this.style.display='none'" loading="lazy">`:''}
