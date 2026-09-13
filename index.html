@@ -963,11 +963,12 @@ async function renderTercih(){
   }).join('');
 }
 
+function urapColor(rank,total){if(!rank||!total)return'#999';const t=rank/total;const h=120*(1-t);return`hsl(${h},70%,40%)`}
 async function openDraw(kod){
   const box=document.getElementById('dbox');
   box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Yükleniyor...</div>';
   document.getElementById('dmask').classList.add('open');
-  const p=await fetch('/api/program/'+kod).then(r=>r.json()).catch(()=>null);
+  const [p,urap]=await Promise.all([fetch('/api/program/'+kod).then(r=>r.json()).catch(()=>null),fetch('/api/urap').then(r=>r.json()).catch(()=>({}))]);
   if(!p||p.error||!p.kilavuzKodu){box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Bilinmeyen program</div><div style="text-align:center;padding-bottom:20px"><button class="x" style="position:static" onclick="closeDraw()">Kapat</button></div>';return}
   const yil=DY[0];
   const s=p.yearly?.[String(yil)];
@@ -983,6 +984,22 @@ async function openDraw(kod){
   setOg('og:title',document.title);
   setOg('og:description',desc);
   const kl=p.kosulList||p.yearly?.[String(yil)]?.kosulList;
+  const uniUpper=(uni||'').trim().toUpperCase();
+  const urapYears=Object.keys(urap||{}).sort((a,b)=>Number(b)-Number(a));
+  let urapHtml='';
+  if(urapYears.length){
+    urapHtml='<h3>URAP Sıralaması</h3>';
+    for(const uy of urapYears){
+      const yd=urap[uy];
+      const found=yd[uniUpper];
+      const total=Object.keys(yd).length;
+      if(found){
+        urapHtml+=`<div class="kv"><b>${uy}</b><span style="color:${urapColor(found.rank,total)};font-weight:700">URAP ${uy} Sıralaması: ${found.rank}/${total}</span></div>`;
+      }else{
+        urapHtml+=`<div class="kv"><b>${uy}</b><span style="color:#999">URAP ${uy} Sıralaması: Veri yok</span></div>`;
+      }
+    }
+  }
   box.innerHTML=`<button class="x" onclick="closeDraw()">Kapat</button>
     ${!tableSettings.hideLogos&&logoSrc(p.ui)?`<img class="uni-logo-big" src="${logoSrc(p.ui)}" onerror="logoErr(${p.ui});this.style.display='none'" loading="lazy">`:''}
     <h2>${p.universiteAdi||''}</h2>
@@ -993,6 +1010,7 @@ async function openDraw(kod){
     <div style="font-size:11px;margin-top:2px">Tür: <b>${p.universiteTuru||'-'}</b>${p.universiteTuru!=='DEVLET'?' • Burs: <b>'+(p.bursOraniAdi||'-')+'</b>':''}</div>
     <div style="font-size:11px;margin-top:2px">Akreditasyon: <b>${p.akreditasyon||'Yok'}</b> • TYÇ: <b>${p.tyc?'Var':'Yok'}</b></div>
     <button onclick="openMaps('${(p.universiteAdi||'').replace(/'/g,"\\'")}','${(p.fymkAdi||'').replace(/'/g,"\\'")}')" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${mapsLabel(p.fymkAdi)}</button>
+    ${urapHtml}
      <h3>Kontenjan & Yerleşen</h3>
     ${DY.map(y=>{const s=p.yearly?.[String(y)];const noData=!s||((s.kn==null||s.kn==='')&&(s.yl==null||s.yl===''));if(noData)return`<div class="kv"><b>${y}-YKS</b><span style="color:#0ea5e9">Veri yok</span></div>`;const k=s.kn!=null&&s.kn!==''?F(s.kn):'-';const yl=s.yl!=null&&s.yl!==''?` Yerleşen: ${F(s.yl)}`:'';return`<div class="kv"><b>${y}-YKS</b><span>Kont: ${k}${yl}</span></div>`}).join('')}
      <h3>Taban Puan & Sıralama</h3>
