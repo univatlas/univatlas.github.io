@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
 <script src="data/static/config.js"></script>
-<script>document.querySelector('meta[name="description"]').content=document.querySelector('meta[name="description"]').content.replace('2026',window.YOK_ATLAS_DATA.lastFetchYear)</script>
+<script>const y=window.YOK_ATLAS_DATA.lastFetchYear;document.querySelector('meta[name="description"]').content=document.querySelector('meta[name="description"]').content.replace('2026',y);document.querySelector('meta[property="og:title"]').content=document.querySelector('meta[property="og:title"]').content.replace('2026',y)</script>
 <script src="static.js?v=3"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3813680795415350" crossorigin="anonymous"></script>
 <style>
@@ -963,7 +963,7 @@ async function renderTercih(){
   }).join('');
 }
 
-function urapColor(rank,total){if(!rank||!total)return'#999';const t=rank/total;const h=120*(1-t);return`hsl(${h},70%,40%)`}
+function urapColor(rank,total){if(!rank||!total)return'#999';const t=Math.min(rank/total,1);let h,s,l;if(t<.25){h=120-60*(t/.25);s=65;l=38}else if(t<.5){h=60-30*((t-.25)/.25);s=75;l=42}else if(t<.75){h=30-20*((t-.5)/.25);s=80;l=42}else{h=10-10*((t-.75)/.25);s=75;l=40}return`hsl(${h},${s}%,${l}%)`}
 async function openDraw(kod){
   const box=document.getElementById('dbox');
   box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Yükleniyor...</div>';
