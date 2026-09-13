@@ -24,7 +24,9 @@ jobs:
         run: node fetch-data.js
 
       - name: urap
-        run: node scripts/build-urap.js
+        run: | 
+          npm install xlsx
+          node scripts/build-urap.js
 
       - name: static data
         run: node scripts/build-static-data.js
