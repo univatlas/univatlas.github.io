@@ -41,8 +41,12 @@
     }
     return { cities:[...cities.values()], unis:[...unis.values()], groups:[...groups.values()], cityUnis };
   }
-  let index;
+  let index, urapData;
   const shardCache = new Map();
+  function loadUrap() {
+    if (!urapData) urapData = realFetch(url('data/urap/urap.json')).then(r => r.json()).catch(() => ({}));
+    return urapData;
+  }
   function filter(f) {
     const ly = String(years()[0]); let r = programs;
     if (f.puanTuru && f.puanTuru !== 'ALL') r = r.filter(p => p.pt === f.puanTuru);
@@ -82,6 +86,7 @@
     if (path.endsWith('/universities')) return jsonResponse(index.unis);
     if (path.endsWith('/program-groups')) return jsonResponse(index.groups);
     if (path.endsWith('/city-unis')) return jsonResponse(index.cityUnis);
+    if (path.endsWith('/urap')) return jsonResponse(await loadUrap());
     if (path.endsWith('/search')) { const f = JSON.parse(init.body || '{}'), r = filter(f), size = f.size || 100, page = f.page || 0; return jsonResponse({ content:r.slice(page*size, page*size+size), totalElements:r.length, totalPages:Math.ceil(r.length/size), years:years() }); }
     const match = path.match(/\/api\/program\/([^/]+)/); if (match) return jsonResponse(await program(decodeURIComponent(match[1])));
     return jsonResponse({ error:'Unsupported static API' });
