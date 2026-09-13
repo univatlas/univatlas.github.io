@@ -29,6 +29,11 @@ jobs:
       - name: static data
         run: node scripts/build-static-data.js
 
+      - name: yil
+        run: |
+          YEAR=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/metadata.json','utf8')).lastFetchYear)")
+          sed -i "s/[0-9]\{4\} YKS/$YEAR YKS/g" index.html
+
       - name: commit
         run: |
           git config user.name "github-actions[bot]"
