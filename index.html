@@ -47,16 +47,17 @@ select:focus,input[type=text]:focus{border-color:var(--red)}
 input[type=text]{width:120px}
 .ck{display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-size:15px;padding:3px 5px;margin:1px 0;line-height:21px;user-select:none}
 .ck input{width:17px;height:17px;accent-color:#762516;cursor:pointer;flex-shrink:0}
-.dual-list{display:flex;border:1px solid #9f9f9f}
-.dual-col{flex:1;min-width:0}
-.dual-col+.dual-col{border-left:2px solid #fff}
+.dual-list{display:flex;border:1px solid #9f9f9f;gap:10px;padding:10px;height:300px;min-height:150px;resize:vertical;overflow:hidden}
+.dual-col{flex:1;min-width:0;min-height:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.dual-col .scroll-box{flex:1;min-height:0;height:auto;resize:none}
 .dual-col h4{display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:15px;font-weight:700;background:#e9e9e9;line-height:26px;border-bottom:1px solid #ccc}
 .dual-col h4 input{width:17px;height:17px;accent-color:#762516;cursor:pointer}
-.scroll-box{height:220px;overflow-y:auto;overflow-x:hidden}
+.scroll-box{height:220px;overflow-y:auto;overflow-x:hidden;resize:vertical;min-height:80px}
 .scroll-box ul{list-style:none}
 .scroll-box li{display:flex;align-items:center;gap:3px;padding:2px 4px;font-size:14px;background:#d9d9d9;border-top:2px solid #fff;color:#000099;font-weight:700;cursor:pointer;line-height:20px}
 .scroll-box li:nth-child(even){background:#fff}
 .scroll-box li:hover{background:#4289ed;color:#fff}
+.scroll-box li:hover span{color:#fff!important}
 .scroll-box li label{display:flex;align-items:center;gap:3px;cursor:pointer;width:100%;overflow:hidden}
 .scroll-box li input{width:16px;height:16px;flex-shrink:0;accent-color:#762516}
 .scroll-box li p{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
@@ -66,6 +67,14 @@ input[type=text]{width:120px}
 .search-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:calc(100% - 16px);margin:10px 8px;padding:0;border:0;height:48px;font-family:'Poppins',Arial,sans-serif;font-size:17px;font-weight:700;background:#16a34a;color:#fff;cursor:pointer;line-height:1;text-align:center;transition:background .15s, transform .1s;box-shadow:0 4px 12px rgba(22,163,74,.25);border-radius:10px;letter-spacing:.3px}
 .search-btn:hover{background:#15803d}
 .search-btn:active{transform:scale(0.98)}
+.search-row{display:flex;gap:8px;margin:10px 8px}
+.search-row .search-btn{margin:0;width:auto;flex:1}
+.reset-square{flex:0 0 48px;height:48px;border-radius:10px;border:1px solid var(--border);background:#fff;color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.reset-square:hover{background:#f1f5f9}
+.reset-square:active{transform:scale(0.96)}
+.search-clear-wrap{position:relative}
+.clear-x{position:absolute;right:6px;top:50%;transform:translateY(-50%);display:none;align-items:center;justify-content:center;width:22px;height:22px;border:0;border-radius:6px;background:transparent;color:#94a3b8;font-size:18px;line-height:1;cursor:pointer;padding:0}
+.clear-x:hover{background:#fee2e2;color:#dc2626}
 .info-bar{background:#fff;border:1px solid var(--border);margin:6px 8px 0;padding:6px 10px;font-size:15px;color:#666}
 .table-settings{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-bottom:0;margin:6px 8px 0;padding:6px 10px;font-size:14px}
 .table-settings label{display:inline-flex;align-items:center;gap:5px;font-weight:700;cursor:pointer}
@@ -155,13 +164,8 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
 .uni-logo{width:26px;height:26px;border-radius:4px;object-fit:contain;background:#f0f0f0;flex-shrink:0;margin-right:4px}
 .uni-logo-big{width:56px;height:56px;border-radius:8px;object-fit:contain;background:#f0f0f0;float:left;margin:0 10px 4px 0}
 .logo-fail{display:none!important}
-.reset-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:#000;width:34px;height:34px;font-size:17px;line-height:1;cursor:pointer;border-radius:5px;display:flex;align-items:center;justify-content:center;z-index:2}
-.reset-btn:hover{background:rgba(255,255,255,.2)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:100}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:768px){
-  .reset-btn{width:30px;height:30px;font-size:15px}
-}
 @media(max-width:768px){
   .uni-logo{width:18px;height:18px}
   .uni-logo-big{width:40px;height:40px}
@@ -275,6 +279,8 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   body.mobile-table-view .tl-arrows{flex-direction:column;gap:1px}
   body.mobile-table-view .tl-ar{width:24px;height:16px;font-size:9px}
   body.mobile-table-view table{min-width:860px}
+  body.compact-table.mobile-table-view table{min-width:0;width:100%}
+  body.compact-table.mobile-table-view tbody td{white-space:normal}
 }
 /* Tablet: tablo sığdırma - yazı ve padding küçült */
 @media(max-width:1024px) and (min-width:769px){
@@ -303,7 +309,6 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
     <img id="topLogo" class="topbar-logo" src="logo.png" alt="ÜnivAtlas" onerror="this.style.display='none'">
     <h1>ÜnivAtlas</h1>
   </div>
-  <button class="reset-btn" type="button" onclick="resetAll()" title="Sıfırla" aria-label="Sıfırla"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
 </div>
 
 <div class="card">
@@ -329,14 +334,14 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   <div class="card-body">
     <div style="margin-bottom:4px">
       <label class="ck"><input type="checkbox" id="fDev" checked onchange="typeCk()"> DEVLET</label>
-      <label class="ck"><input type="checkbox" id="fVak" checked onchange="typeCk()"> VAKIF</label>
+      <label class="ck"><input type="checkbox" id="fVak" checked onchange="vakifCk()"> VAKIF</label>
     </div>
     <div style="margin-bottom:4px">
       <label class="ck" id="optUcr"><input type="checkbox" id="bUcr" checked onchange="freeCk(this.checked)"> Ücretsiz</label>
-      <label class="ck" id="optBrs"><input type="checkbox" id="bBrs" checked onchange="syncUrl()"> Burslu</label>
-      <label class="ck" id="opt50"><input type="checkbox" id="b50" checked onchange="syncUrl()"> %50</label>
-      <label class="ck" id="opt25"><input type="checkbox" id="b25" checked onchange="syncUrl()"> %25</label>
-      <label class="ck" id="optUcret"><input type="checkbox" id="bUcret" checked onchange="syncUrl()"> Ücretli</label>
+      <label class="ck" id="optBrs"><input type="checkbox" id="bBrs" checked onchange="bursCk()"> Burslu</label>
+      <label class="ck" id="opt50"><input type="checkbox" id="b50" checked onchange="bursCk()"> %50</label>
+      <label class="ck" id="opt25"><input type="checkbox" id="b25" checked onchange="bursCk()"> %25</label>
+      <label class="ck" id="optUcret"><input type="checkbox" id="bUcret" checked onchange="bursCk()"> Ücretli</label>
     </div>
     <div style="margin-bottom:4px">
       <label class="ck"><input type="checkbox" id="fYeni" checked onchange="syncUrl()"> Yeni Açılanlar</label>
@@ -345,6 +350,7 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
     <div>
       <label class="ck"><input type="checkbox" id="fKktc" onchange="syncUrl()"> KKTC Uyruklu</label>
       <label class="ck"><input type="checkbox" id="fMtok" onchange="syncUrl()"> M.T.O.K.</label>
+      <label class="ck"><input type="checkbox" id="fYurt" onchange="syncUrl()"> Sadece Türkiye</label>
     </div>
   </div>
 </div>
@@ -355,12 +361,12 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
     <div class="dual-list">
       <div class="dual-col">
         <h4 style="cursor:pointer" onclick="if(!event.target.closest('label')){const cb=document.getElementById('ckAllSehir'); cb.checked=!cb.checked; toggleAllSehir(cb.checked)}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" id="ckAllSehir" onchange="toggleAllSehir(this.checked)"> Tüm Şehirler</label></h4>
-        <input type="text" id="sehirSearch" placeholder="Şehir ara..." style="width:100%;height:30px;padding:0 6px;font-size:13px;border:none;border-bottom:1px solid #e2e8f0;outline:none" oninput="renderSehir()">
+        <div class="search-clear-wrap"><input type="text" id="sehirSearch" placeholder="Şehir ara..." style="width:100%;height:30px;padding:0 28px 0 6px;font-size:13px;border:none;border-bottom:1px solid #e2e8f0;outline:none" oninput="renderSehir();toggleClear('sehirSearch','clrSehir')"><button class="clear-x" id="clrSehir" type="button" onclick="clearSearch('sehirSearch','clrSehir',renderSehir)" title="Temizle" aria-label="Temizle">×</button></div>
         <div class="scroll-box" id="lstSehir"></div>
       </div>
       <div class="dual-col">
         <h4 style="cursor:pointer" onclick="if(!event.target.closest('label')){const cb=document.getElementById('ckAllUni'); cb.checked=!cb.checked; toggleAllUni(cb.checked)}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" id="ckAllUni" onchange="toggleAllUni(this.checked)"> Tüm Üniversiteler</label></h4>
-        <input type="text" id="uniSearch" placeholder="Üniversite ara..." style="width:100%;height:30px;padding:0 6px;font-size:13px;border:none;border-bottom:1px solid #e2e8f0;outline:none" oninput="renderUni()">
+        <div class="search-clear-wrap"><input type="text" id="uniSearch" placeholder="Üniversite ara..." style="width:100%;height:30px;padding:0 28px 0 6px;font-size:13px;border:none;border-bottom:1px solid #e2e8f0;outline:none" oninput="renderUni();toggleClear('uniSearch','clrUni')"><button class="clear-x" id="clrUni" type="button" onclick="clearSearch('uniSearch','clrUni',renderUni)" title="Temizle" aria-label="Temizle">×</button></div>
         <div class="scroll-box" id="lstUni"></div>
       </div>
     </div>
@@ -370,15 +376,15 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
 <div class="card">
   <div class="card-title">BÖLÜM SEÇİMİ</div>
   <div class="card-body" style="padding:0">
-    <h4 style="display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:15px;font-weight:700;background:#e9e9e9;border-bottom:1px solid #ccc;cursor:pointer" onclick="if(!event.target.closest('label')){const cb=document.getElementById('ckAllBolum'); cb.checked=!cb.checked; toggleAllBolum(cb.checked)}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" id="ckAllBolum" onchange="toggleAllBolum(this.checked)"> Tüm Bölümler</label></h4>
+    <h4 style="display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:15px;font-weight:700;background:#e9e9e9;line-height:26px;border-bottom:1px solid #ccc;cursor:pointer" onclick="if(!event.target.closest('label')){const cb=document.getElementById('ckAllBolum'); cb.checked=!cb.checked; toggleAllBolum(cb.checked)}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" id="ckAllBolum" style="width:17px;height:17px;accent-color:#762516;cursor:pointer" onchange="toggleAllBolum(this.checked)"> Tüm Bölümler</label></h4>
     <div style="padding:4px 8px">
-    <input type="text" id="bolumSearch" placeholder="Bölüm ara..." style="width:100%;margin-bottom:4px" oninput="renderBolum();syncUrl()">
+    <div class="search-clear-wrap"><input type="text" id="bolumSearch" placeholder="Bölüm ara..." style="width:100%;margin-bottom:4px;padding-right:28px" oninput="renderBolum();syncUrl();toggleClear('bolumSearch','clrBolum')"><button class="clear-x" id="clrBolum" type="button" onclick="clearSearch('bolumSearch','clrBolum',function(){renderBolum();syncUrl()})" title="Temizle" aria-label="Temizle">×</button></div>
     <div class="scroll-box" id="lstBolum" style="height:180px"></div>
     </div>
   </div>
 </div>
 
-<button class="search-btn" onclick="P.page=0;doSearch(); setTimeout(()=>{document.querySelector('.table-wrap')?.scrollIntoView({behavior:'smooth',block:'start'})},360)">Sonuçları Göster</button>
+<div class="search-row"><button class="search-btn" onclick="P.page=0;doSearch(); setTimeout(()=>{document.querySelector('.table-wrap')?.scrollIntoView({behavior:'smooth',block:'start'})},360)">Sonuçları Göster</button><button class="reset-square" type="button" onclick="askReset()" title="Filtreleri sıfırla" aria-label="Filtreleri sıfırla"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div>
 <div class="view-tabs">
   <button class="view-btn" id="vwSearch" type="button" onclick="setView('search')">Arama</button>
   <button class="view-btn" id="vwTercih" type="button" onclick="setView('tercih')">Tercih Listesi <span class="cnt" id="tlCount">(0)</span></button>
@@ -440,6 +446,7 @@ let urlApplying=false;
 const STATE_KEY='yokatlas-state-v1';
 function saveState(){try{localStorage.setItem(STATE_KEY,buildUrlParams().toString())}catch(e){}}
 function getSavedState(){try{return localStorage.getItem(STATE_KEY)!==null?localStorage.getItem(STATE_KEY):''}catch(e){return ''}}
+function askReset(){if(confirm('Filtreler sıfırlansın mı?'))resetAll()}
 function resetAll(){
   const keepTercih=[...tercih];
   const keepView=view;
@@ -454,6 +461,7 @@ function resetAll(){
   const fDolm=document.getElementById('fDolm'); if(fDolm) fDolm.checked=true;
   const fKktc=document.getElementById('fKktc'); if(fKktc) fKktc.checked=false;
   const fMtok=document.getElementById('fMtok'); if(fMtok) fMtok.checked=false;
+  const fYurt=document.getElementById('fYurt'); if(fYurt) fYurt.checked=false;
   syncTypeOptions(true);
   const bBrs=document.getElementById('bBrs'); if(bBrs) bBrs.checked=true;
   const b75=document.getElementById('b75'); if(b75) b75.checked=true;
@@ -520,12 +528,15 @@ function decodeIdSet(value,allIds){
 }
 
 function updateAllCheckboxes(){
+  const setTri=(id,total,sel)=>{const el=document.getElementById(id);if(!el)return;el.checked=total>0&&sel>=total;el.indeterminate=sel>0&&sel<total;};
   const avUni=availableUniversities();
   const avBolum=availableBolum();
-  document.getElementById('ckAllSehir').checked=sSehir.size>=C.length && C.length>0;
-  document.getElementById('ckAllUni').checked=avUni.length>0 && sUni.size>=avUni.length;
-  const cbB=document.getElementById('ckAllBolum'); if(cbB) cbB.checked=avBolum.length>0 && sBolum.size>=avBolum.length;
+  setTri('ckAllSehir',C.length,sSehir.size);
+  setTri('ckAllUni',avUni.length,sUni.size);
+  setTri('ckAllBolum',avBolum.length,sBolum.size);
 }
+function toggleClear(inp,btn){const b=document.getElementById(btn);if(b)b.style.display=document.getElementById(inp).value?'flex':'none'}
+function clearSearch(inp,btn,fn){const el=document.getElementById(inp);el.value='';toggleClear(inp,btn);fn();}
 
 function applyUrlState(params){
   urlApplying=true;
@@ -547,6 +558,7 @@ function applyUrlState(params){
   document.getElementById('fDolm').checked=gb('dl',true);
   document.getElementById('fKktc').checked=gb('kk',false);
   document.getElementById('fMtok').checked=gb('mt',false);
+  document.getElementById('fYurt').checked=gb('yi',false);
   document.getElementById('bolumSearch').value=g('bq');
   sSehir=decodeIdSet(g('il'),cityIds());
   sUni=decodeIdSet(g('un'),uniIds());
@@ -588,6 +600,7 @@ function buildUrlParams(){
   if(!document.getElementById('fDolm').checked)p.set('dl','0');
   if(document.getElementById('fKktc').checked)p.set('kk','1');
   if(document.getElementById('fMtok').checked)p.set('mt','1');
+  if(document.getElementById('fYurt').checked)p.set('yi','1');
   const bq=(document.getElementById('bolumSearch').value||'').trim();
   if(bq)p.set('bq',bq);
   const il=encodeIdSet(cityIds(),sSehir);if(il)p.set('il',il);
@@ -665,6 +678,7 @@ function renderSehir(){
   let list=C;
   if(q) list=list.filter(c=> (c.il_adi||'').toLocaleLowerCase('tr-TR').includes(q));
   document.getElementById('lstSehir').innerHTML='<ul>'+list.map(c=>`<li><label><input type=checkbox value="${c.il_kodu}" ${sSehir.has(String(c.il_kodu))?'checked':''} onchange="sehirCk(${c.il_kodu},this.checked)">${c.il_adi}</label></li>`).join('')+'</ul>';
+  updateAllCheckboxes();
 }
 
 function availableUniversities(){
@@ -687,6 +701,7 @@ function renderUni(){
   const visibleIds=new Set(availableUniversities().map(u=>String(u.universite_id)));
   [...sUni].forEach(id=>{if(!visibleIds.has(id))sUni.delete(id)});
   document.getElementById('lstUni').innerHTML='<ul>'+list.map(u=>`<li><label><input type=checkbox value="${u.universite_id}" ${sUni.has(String(u.universite_id))?'checked':''} onchange="uniCk(${u.universite_id},this.checked)">${u.universite_adi}</label></li>`).join('')+'</ul>';
+  updateAllCheckboxes();
 }
 
 function renderBolum(){
@@ -697,7 +712,7 @@ function renderBolum(){
   if(q)f=f.filter(b=>(b.birim_grup_adi||'').toLocaleLowerCase('tr-TR').includes(q)||(b.puan_turu||'').toLocaleLowerCase('tr-TR').includes(q));
   document.getElementById('lstBolum').innerHTML='<ul>'+f.map(b=>{
     const kd=DY.map(y=>{const v=b.kontenjan_yillar?.[y];return`${y}: ${v!=null?v.toLocaleString('tr-TR'):'--'}`}).join(' ');
-    return`<li style="flex-direction:column;align-items:flex-start;padding:3px 5px"><label><input type=checkbox value="${b.birim_grup_id}" ${sBolum.has(String(b.birim_grup_id))?'checked':''} onchange="bolumCk(${b.birim_grup_id},this.checked)"><b>${b.birim_grup_adi||''}</b></label><span style="font-size:9px;color:#000;margin-left:17px">${b.puan_turu||''} — ${kd}</span></li>`;
+    return`<li style="flex-direction:column;align-items:flex-start;padding:3px 5px"><label><input type=checkbox value="${b.birim_grup_id}" ${sBolum.has(String(b.birim_grup_id))?'checked':''} onchange="bolumCk(${b.birim_grup_id},this.checked)"><b>${b.birim_grup_adi||''}</b></label><span style="font-size:9px;color:#000;margin-left:17px">${b.puan_turu||''} — ${kd} <span style="color:#9ca3af">(${b.uniSayisi||0} üniversite)</span></span></li>`;
   }).join('')+'</ul>';
   updateAllCheckboxes();
 }
@@ -720,6 +735,18 @@ function typeCk(){
     availableUniversities().forEach(u=>sUni.add(String(u.universite_id)));
   }
   renderUni();syncUrl();
+}
+function bursIds(){return['bBrs','b50','b25','bUcret']}
+function vakifCk(){
+  const vak=document.getElementById('fVak').checked;
+  if(!vak){bursIds().forEach(id=>{document.getElementById(id).checked=false;});}
+  else if(bursIds().every(id=>!document.getElementById(id).checked)){bursIds().forEach(id=>{document.getElementById(id).checked=true;});}
+  typeCk();
+}
+function bursCk(){
+  const anyOn=bursIds().some(id=>document.getElementById(id).checked);
+  document.getElementById('fVak').checked=anyOn;
+  typeCk();
 }
 function freeCk(on){
   document.getElementById('fDev').checked=on;
@@ -817,6 +844,7 @@ async function _doSearch(){
     yeni:document.getElementById('fYeni').checked, dolmamis:document.getElementById('fDolm').checked,
     kktc:document.getElementById('fKktc').checked,
     mtok:document.getElementById('fMtok').checked,
+    yurtici:document.getElementById('fYurt').checked,
     iller:[...sSehir], universiteler:[...sUni], bolumler:[...sBolum],
     minSir:ms?+ms:null, maxSir:mx?+mx:null,
     sortBy:tableSettings.sortBy, sortDir:tableSettings.sortDir,
@@ -879,7 +907,7 @@ function renderPager(){
   h+=`<button ${P.page===P.total-1?'disabled':''} onclick="go(${P.page+1})">›</button>`;
   el.innerHTML=h;
 }
-function go(n){if(n<0||n>=P.total)return;P.page=n;doSearch();window.scrollTo({top:0,behavior:'smooth'})}
+function go(n){if(n<0||n>=P.total)return;P.page=n;doSearch();setTimeout(()=>{document.querySelector('.table-wrap')?.scrollIntoView({behavior:'smooth',block:'start'})},360)}
 
 function toggleTercih(code,on){
   if(on){if(!tercih.includes(code))tercih.push(code)}
@@ -964,11 +992,12 @@ async function renderTercih(){
 }
 
 function urapColor(rank,total){if(!rank||!total)return'#999';const t=Math.min(rank/total,1);let h,s,l;if(t<.25){h=120-60*(t/.25);s=65;l=38}else if(t<.5){h=60-30*((t-.25)/.25);s=75;l=42}else if(t<.75){h=30-20*((t-.5)/.25);s=80;l=42}else{h=10-10*((t-.75)/.25);s=75;l=40}return`hsl(${h},${s}%,${l}%)`}
+function theColor(world){if(!world||/reporter/i.test(String(world)))return'#991b1b';const m=String(world).match(/\d+/);const low=m?parseInt(m[0],10):Infinity;if(!(low<1500))return'#c2410c';const t=Math.min(Math.max((low-300)/(1500-300),0),1);const h=Math.round(120-120*t);return`hsl(${h},70%,38%)`}
 async function openDraw(kod){
   const box=document.getElementById('dbox');
   box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Yükleniyor...</div>';
   document.getElementById('dmask').classList.add('open');
-  const [p,urap]=await Promise.all([fetch('/api/program/'+kod).then(r=>r.json()).catch(()=>null),fetch('/api/urap').then(r=>r.json()).catch(()=>({}))]);
+  const [p,urap,the]=await Promise.all([fetch('/api/program/'+kod).then(r=>r.json()).catch(()=>null),fetch('/api/urap').then(r=>r.json()).catch(()=>({})),fetch('/api/the').then(r=>r.json()).catch(()=>({}))]);
   if(!p||p.error||!p.kilavuzKodu){box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Bilinmeyen program</div><div style="text-align:center;padding-bottom:20px"><button class="x" style="position:static" onclick="closeDraw()">Kapat</button></div>';return}
   const yil=DY[0];
   const s=p.yearly?.[String(yil)];
@@ -984,13 +1013,24 @@ async function openDraw(kod){
   setOg('og:title',document.title);
   setOg('og:description',desc);
   const kl=p.kosulList||p.yearly?.[String(yil)]?.kosulList;
-  const urapYears=Object.keys(urap||{}).sort((a,b)=>Number(b)-Number(a));
+  const urapYears=Object.keys(urap||{}).sort((a,b)=>Number(b)-Number(a)).slice(0,1);
   let urapLine='';
   for(const uy of urapYears){
     const yd=urap[uy];
     const arr=yd.r||[];
     const found=arr.find(x=>x[0]===p.ui);
-    if(found) urapLine+=`<div style="font-size:11px;margin-top:2px"><a href="https://newtr.urapcenter.org/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">URAP ${uy} Sıralaması</a>: <span style="color:${urapColor(found[1],yd.total)};font-weight:700">${found[1]}/${yd.total}</span></div>`;
+    if(found) urapLine+=`<div style="font-size:11px;margin-top:2px"><a href="https://newtr.urapcenter.org/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">URAP ${uy} Sıralaması</a>: <span style="color:${urapColor(found[1],yd.total)};font-weight:700">${found[1]}/${yd.total}</span></div>`;
+  }
+  const THE_URL='https://www.timeshighereducation.com/world-university-rankings/latest/world-ranking';
+  const theYears=Object.keys(the||{}).sort((a,b)=>Number(b)-Number(a)).slice(0,1);
+  let theLine='';
+  for(const uy of theYears){
+    const yd=the[uy];
+    const arr=yd.r||[];
+    const found=arr.find(x=>x[0]===p.ui);
+    if(found&&(found[2]==='Reporter'||found[1]==null)) theLine+=`<div style="font-size:11px;margin-top:2px"><a href="${THE_URL}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">THE ${uy} Dünya Sıralaması</a>: <span style="color:#991b1b;font-weight:700">Derecelendirilmedi</span></div>`;
+    else if(found) theLine+=`<div style="font-size:11px;margin-top:2px"><a href="${THE_URL}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">THE ${uy} Dünya Sıralaması</a>: <span style="color:${theColor(found[2])};font-weight:700">${found[2]}</span></div>`;
+    else if(urapLine!=='') theLine+=`<div style="font-size:11px;margin-top:2px"><a href="${THE_URL}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">THE ${uy} Dünya Sıralaması</a>: <span style="color:#991b1b;font-weight:700">Sıralamada yok</span></div>`;
   }
   box.innerHTML=`<button class="x" onclick="closeDraw()">Kapat</button>
     ${!tableSettings.hideLogos&&logoSrc(p.ui)?`<img class="uni-logo-big" src="${logoSrc(p.ui)}" onerror="logoErr(${p.ui});this.style.display='none'" loading="lazy">`:''}
@@ -1002,6 +1042,7 @@ async function openDraw(kod){
     <div style="font-size:11px;margin-top:2px">Tür: <b>${p.universiteTuru||'-'}</b>${p.universiteTuru!=='DEVLET'?' • Burs: <b>'+(p.bursOraniAdi||'-')+'</b>':''}</div>
     <div style="font-size:11px;margin-top:2px">Akreditasyon: <b>${p.akreditasyon||'Yok'}</b> • TYÇ: <b>${p.tyc?'Var':'Yok'}</b></div>
     ${urapLine}
+    ${theLine}
     <button onclick="openMaps('${(p.universiteAdi||'').replace(/'/g,"\\'")}','${(p.fymkAdi||'').replace(/'/g,"\\'")}')" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${mapsLabel(p.fymkAdi)}</button>
      <h3>Kontenjan & Yerleşen</h3>
     ${DY.map(y=>{const s=p.yearly?.[String(y)];const noData=!s||((s.kn==null||s.kn==='')&&(s.yl==null||s.yl===''));if(noData)return`<div class="kv"><b>${y}-YKS</b><span style="color:#0ea5e9">Veri yok</span></div>`;const k=s.kn!=null&&s.kn!==''?F(s.kn):'-';const yl=s.yl!=null&&s.yl!==''?` Yerleşen: ${F(s.yl)}`:'';return`<div class="kv"><b>${y}-YKS</b><span>Kont: ${k}${yl}</span></div>`}).join('')}
@@ -1053,13 +1094,13 @@ function trTitleCase(s){
 }
 function mapsLabel(fakulte){
   const t=(fakulte||'').toLocaleUpperCase('tr-TR');
-  if(t.includes('MESLEK YÜKSEKOKUL'))return"MYO'yu Haritalarda Göster";
-  if(t.includes('FAKÜLTE'))return'Fakülteyi Haritalarda Göster';
-  if(t.includes('YÜKSEKOKUL'))return'Yüksekokulu Haritalarda Göster';
-  if(t.includes('ENSTİTÜ'))return'Enstitüyü Haritalarda Göster';
-  if(t.includes('KAMPÜSÜ'))return'Kampüsü Haritalarda Göster';
-  if(t.includes('YERLEŞKESİ'))return'Yerleşkeyi Haritalarda Göster';
-  return'Haritalarda Göster';
+  if(t.includes('MESLEK YÜKSEKOKUL'))return"MYO'yu Haritalarda Ara";
+  if(t.includes('FAKÜLTE'))return'Fakülteyi Haritalarda Ara';
+  if(t.includes('YÜKSEKOKUL'))return'Yüksekokulu Haritalarda Ara';
+  if(t.includes('ENSTİTÜ'))return'Enstitüyü Haritalarda Ara';
+  if(t.includes('KAMPÜSÜ'))return'Kampüsü Haritalarda Ara';
+  if(t.includes('YERLEŞKESİ'))return'Yerleşkeyi Haritalarda Ara';
+  return'Haritalarda Ara';
 }
 function openMaps(uni,fakulte){
   const cleanUni=uni.replace(/\s*\([^)]*\)\s*/g,' ').trim();
