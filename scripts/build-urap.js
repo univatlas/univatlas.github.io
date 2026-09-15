@@ -24,8 +24,23 @@ if (catalogFile) {
 }
 
 const result = {};
+fs.mkdirSync(urapDir, { recursive: true });
 const files = fs.readdirSync(urapDir).filter(f => /^urap_\d{4}\.xlsx$/i.test(f));
-if (!files.length) { console.log('No urap_YYYY.xlsx files found in data/urap/'); process.exit(0); }
+if (!files.length) {
+  console.log('No urap_YYYY.xlsx files found in data/urap/ - keeping existing urap.json.');
+  if (fs.existsSync(outFile)) {
+    try {
+      const cur = JSON.parse(fs.readFileSync(outFile, 'utf8'));
+      const ys = Object.keys(cur).sort();
+      if (ys.length > 1) {
+        const latest = ys[ys.length - 1];
+        fs.writeFileSync(outFile, JSON.stringify({ [latest]: cur[latest] }));
+        console.log(`Removed old years, kept only ${latest}.`);
+      }
+    } catch {}
+  }
+  process.exit(0);
+}
 
 for (const file of files) {
   const yearMatch = file.match(/urap_(\d{4})\.xlsx/i);
@@ -50,5 +65,13 @@ for (const file of files) {
 }
 
 fs.mkdirSync(path.dirname(outFile), { recursive: true });
-fs.writeFileSync(outFile, JSON.stringify(result));
-console.log(`Written: ${outFile}`);
+const allYears = Object.keys(result).sort();
+const latestYear = allYears[allYears.length - 1];
+for (const file of files) {
+  if (!new RegExp(`urap_${latestYear}\\.xlsx`, 'i').test(file)) {
+    fs.unlinkSync(path.join(urapDir, file));
+    console.log(`Deleted old file: ${file}`);
+  }
+}
+fs.writeFileSync(outFile, JSON.stringify({ [latestYear]: result[latestYear] }));
+console.log(`Written: ${outFile} (only ${latestYear})`);
