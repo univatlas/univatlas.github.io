@@ -34,18 +34,23 @@
       if (p.ui && p.ik) (cityUnis[p.ik] ||= []).includes(p.ui) || cityUnis[p.ik].push(p.ui);
       if (p.bga) {
         const gk=p.bga+'|'+p.pt;
-        const g = groups.get(gk) || { birim_grup_id:p.bg, birim_grup_adi:p.bga, puan_turu:p.pt, kontenjan_yillar:{} };
+        const g = groups.get(gk) || { birim_grup_id:p.bg, birim_grup_adi:p.bga, puan_turu:p.pt, kontenjan_yillar:{}, _u:new Set() };
         for (const [y, s] of Object.entries(p.y)) if (s.kn != null) g.kontenjan_yillar[y] = (g.kontenjan_yillar[y] || 0) + s.kn;
+        if (p.ui) g._u.add(p.ui);
         groups.set(gk, g);
       }
     }
-    return { cities:[...cities.values()], unis:[...unis.values()], groups:[...groups.values()], cityUnis };
+    return { cities:[...cities.values()], unis:[...unis.values()], groups:[...groups.values()].map(g=>({birim_grup_id:g.birim_grup_id,birim_grup_adi:g.birim_grup_adi,puan_turu:g.puan_turu,kontenjan_yillar:g.kontenjan_yillar,uniSayisi:g._u.size})), cityUnis };
   }
-  let index, urapData;
+  let index, urapData, theData;
   const shardCache = new Map();
   function loadUrap() {
     if (!urapData) urapData = realFetch(url('data/urap/urap.json')).then(r => r.json()).catch(() => ({}));
     return urapData;
+  }
+  function loadThe() {
+    if (!theData) theData = realFetch(url('data/the/the.json')).then(r => r.json()).catch(() => ({}));
+    return theData;
   }
   function filter(f) {
     const ly = String(years()[0]); let r = programs;
@@ -62,6 +67,9 @@
     if (f.dolmamis !== true) r = r.filter(p => !(p.y[ly] && p.y[ly].yl != null && p.y[ly].kn != null && p.y[ly].yl < p.y[ly].kn));
     if (f.kktc !== true) r = r.filter(p => !p.bi.includes('KKTC'));
     if (f.mtok !== true) r = r.filter(p => !p.bi.includes('M.T.O.K'));
+    const YD_UA=/KKTC|AZERBAYCAN|BAKÜ|SARAYBOSNA|BOSNA|HERSEK|ŞKEK|KIRGIZ|KAZAK|ARNAVUT|ÜSKÜP|MAKEDONYA/i;
+    const YD_FA=/KKTC-|KUZEY KIBRIS|SARAYBOSNA|UOLP|G[İI]RNE|GAZ[İI]MAĞUSA|LEFKOŞA|LEFKE/i;
+    if (f.yurtici === true) r = r.filter(p => !YD_UA.test(p.ua || '') && !YD_FA.test(p.fa || '') && !YD_FA.test(p.bi || '') && p.uai !== 'KIBRIS');
     const field = f.sortBy === 'mp' ? 'mp' : 'bs', direction = f.sortDir === 'desc' ? -1 : 1;
     const value = p => { const v = p.y[ly]?.[field]; return v == null || v === '' || Number(v) === 0 ? null : Number(v); };
     return r.slice().sort((a,b) => { const av=value(a),bv=value(b); if(av==null)return bv==null?0:1;if(bv==null)return -1;return(av-bv)*direction; });
@@ -87,6 +95,7 @@
     if (path.endsWith('/program-groups')) return jsonResponse(index.groups);
     if (path.endsWith('/city-unis')) return jsonResponse(index.cityUnis);
     if (path.endsWith('/urap')) return jsonResponse(await loadUrap());
+    if (path.endsWith('/the')) return jsonResponse(await loadThe());
     if (path.endsWith('/search')) { const f = JSON.parse(init.body || '{}'), r = filter(f), size = f.size || 100, page = f.page || 0; return jsonResponse({ content:r.slice(page*size, page*size+size), totalElements:r.length, totalPages:Math.ceil(r.length/size), years:years() }); }
     const match = path.match(/\/api\/program\/([^/]+)/); if (match) return jsonResponse(await program(decodeURIComponent(match[1])));
     return jsonResponse({ error:'Unsupported static API' });
