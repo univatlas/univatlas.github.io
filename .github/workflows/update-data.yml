@@ -20,13 +20,22 @@ jobs:
         with:
           node-version: 20
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: node
         run: node fetch-data.js
 
       - name: urap
-        run: | 
-          npm install xlsx
-          node scripts/build-urap.js
+        continue-on-error: true
+        run: node scripts/build-urap.js
+
+      - name: the
+        continue-on-error: true
+        run: |
+          pip install scikit-learn
+          python scripts/build-the.py
 
       - name: static data
         run: node scripts/build-static-data.js
@@ -40,6 +49,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f data/static/ data/urap/ sitemap.xml index.html
+          git add -f data/static/ data/urap/ data/the/ sitemap.xml index.html static.js
           git diff --cached --quiet || git commit -m "Veri guncellendi: $(date -u +%Y-%m-%d)"
           git push
