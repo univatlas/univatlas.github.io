@@ -192,6 +192,7 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   tbody tr{position:relative;display:flex;flex-wrap:wrap;gap:0;background:#fff;border:1px solid var(--border);border-left:4px solid transparent;border-radius:8px;margin-bottom:6px;padding:6px 8px 6px 32px;height:auto;box-shadow:0 1px 2px rgba(0,0,0,.05);overflow:hidden}
   tbody tr.card-devlet{border-left-color:#22c55e}
   tbody tr.card-vakif{border-left-color:#f97316}
+  tbody tr.card-yurtdisi{border-left-color:#a855f7}
   tbody tr:nth-child(even){background:#fff}
   tbody tr:hover{background:#fff;color:inherit}
   tbody tr:hover .uname{color:#0e6600!important}
@@ -243,7 +244,7 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   body.mobile-table-view thead{display:table-header-group}
   body.mobile-table-view tbody{display:table-row-group}
   body.mobile-table-view tbody tr{position:static;display:table-row;flex-wrap:nowrap;gap:0;background:#fff;border:none;border-left:none;border-radius:0;margin:0;padding:0;height:40px;box-shadow:none;overflow:visible;flex:none}
-  body.mobile-table-view tbody tr.card-devlet, body.mobile-table-view tbody tr.card-vakif{border-left:none}
+  body.mobile-table-view tbody tr.card-devlet, body.mobile-table-view tbody tr.card-vakif, body.mobile-table-view tbody tr.card-yurtdisi{border-left:none}
   body.mobile-table-view tbody tr:nth-child(even){background:#f2f2f2}
   body.mobile-table-view tbody tr:hover{background:#4289ed;color:#fff}
   body.mobile-table-view tbody tr:hover .uname{color:#fff!important}
@@ -881,7 +882,7 @@ function renderTable(rows){
     const hasPrevYear=DY.length>1&&p.y?.[String(DY[1])];
     const isNew=ls&&ls.mp==null&&ls.bs==null&&!hasPrevYear;
     const inT=tercih.includes(p.k);
-    return`<tr onclick="openDraw('${p.k}')" class="${p.ut==='DEVLET'?'card-devlet':'card-vakif'}">
+    return`<tr onclick="openDraw('${p.k}')" class="${cardCls(p.ut)}">
       <td class="tl-cell" onclick="event.stopPropagation()"><label class="tl-ck"><input type="checkbox" ${inT?'checked':''} onchange="toggleTercih('${p.k}',this.checked)"></label></td>
       <td style="font-family:'Courier New',monospace;font-weight:700;font-size:11px">${startIdx+i+1}</td>
       <td class="l"><div class="l-flex ${p.ut==='DEVLET'?'uni-devlet':'uni-vakif'}">${!tableSettings.hideLogos&&logoSrc(p.ui)?`<img class="uni-logo" src="${logoSrc(p.ui)}" onerror="logoErr(${p.ui});this.style.display='none'" loading="lazy">`:''}<div><span class="uname">${p.ua||''}</span><span class="uname-sub">${p.uai||''}</span></div></div></td>
@@ -970,7 +971,7 @@ async function renderTercih(){
     const hasPrevYear=DY.length>1&&ys(p,String(DY[1]));
     const isNew=ls&&ls.mp==null&&ls.bs==null&&!hasPrevYear;
     const code=String(p.kilavuzKodu||p.k);
-    return`<tr class="drag-row ${p.universiteTuru==='DEVLET'?'card-devlet':'card-vakif'}" draggable="true" ondragstart="dragStart(event,'${code}')" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="dragDrop(event,'${code}')" onclick="openDraw('${code}')">
+    return`<tr class="drag-row ${cardCls(p.universiteTuru)}" draggable="true" ondragstart="dragStart(event,'${code}')" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="dragDrop(event,'${code}')" onclick="openDraw('${code}')">
       <td class="tl-cell" onclick="event.stopPropagation()">
         <div class="tl-arrows">
           <button class="tl-ar" onclick="moveTercih('${code}',-1)" ${i===0?'disabled':''} title="Yukarı taşı">▲</button>
@@ -993,6 +994,7 @@ async function renderTercih(){
 
 function urapColor(rank,total){if(!rank||!total)return'#999';const t=Math.min(rank/total,1);let h,s,l;if(t<.25){h=120-60*(t/.25);s=65;l=38}else if(t<.5){h=60-30*((t-.25)/.25);s=75;l=42}else if(t<.75){h=30-20*((t-.5)/.25);s=80;l=42}else{h=10-10*((t-.75)/.25);s=75;l=40}return`hsl(${h},${s}%,${l}%)`}
 function theColor(world){if(!world||/reporter/i.test(String(world)))return'#991b1b';const m=String(world).match(/\d+/);const low=m?parseInt(m[0],10):Infinity;if(!(low<1500))return'#c2410c';const t=Math.min(Math.max((low-300)/(1500-300),0),1);const h=Math.round(120-120*t);return`hsl(${h},70%,38%)`}
+function cardCls(t){return t==='DEVLET'?'card-devlet':t==='VAKIF'?'card-vakif':'card-yurtdisi'}
 async function openDraw(kod){
   const box=document.getElementById('dbox');
   box.innerHTML='<div style="padding:40px;text-align:center;color:#999">Yükleniyor...</div>';
