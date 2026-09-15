@@ -29,7 +29,9 @@ jobs:
 
       - name: urap
         continue-on-error: true
-        run: node scripts/build-urap.js
+        run: |
+          npm i xlsx
+          node scripts/build-urap.js
 
       - name: the
         continue-on-error: true
