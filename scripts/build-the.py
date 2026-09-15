@@ -158,14 +158,9 @@ def main():
         raise SystemExit("Could not fetch THE data.")
 
     os.makedirs(THE_DIR, exist_ok=True)
-    with open(os.path.join(THE_DIR, f"the_{year}.json"), "w", encoding="utf-8") as f:
+    raw_path = os.path.join(THE_DIR, f"the_{year}.json")
+    with open(raw_path, "w", encoding="utf-8") as f:
         json.dump(raw, f)
-    for fn in os.listdir(THE_DIR):
-        mm = re.fullmatch(r"the_(\d{4})\.json", fn)
-        if mm and mm.group(1) != str(year):
-            os.remove(os.path.join(THE_DIR, fn))
-            print(f"Deleted old dump: {fn}")
-    print(f"Raw dump written: data/the/the_{year}.json")
 
     rows = [r for r in raw.get("data", [])
             if str(r.get("location", "")).strip().lower() in ("turkey", "türkiye")]
@@ -193,8 +188,12 @@ def main():
     print(f"THE {year}: {ranked} ranked + {len(arr) - ranked} reporters = {len(arr)} matched {methods}")
 
     with open(OUT_FILE, "w", encoding="utf-8") as f:
-        json.dump({str(year): {"total": ranked, "r": arr}}, f)
+        json.dump({str(year): {"total": ranked, "r": arr}}, f, separators=(",", ":"))
     print(f"Written: {OUT_FILE} (only {year})")
+    for fn in os.listdir(THE_DIR):
+        if re.fullmatch(r"the_\d{4}\.json", fn):
+            os.remove(os.path.join(THE_DIR, fn))
+            print(f"Deleted raw dump: {fn}")
 
 
 if __name__ == "__main__":
