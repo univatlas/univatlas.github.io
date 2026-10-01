@@ -1,0 +1,1 @@
+window.DGS_DATA={"version": "2026-3f7508aa698d", "catalog": "catalog-2026-3f7508aa698d.json", "onlisans": "onlisans-2026-3f7508aa698d.json", "totalPrograms": 8566, "lastFetchYear": 2026, "displayYears": [2026, 2025, 2024]};
