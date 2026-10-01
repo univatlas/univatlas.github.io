@@ -9,10 +9,11 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>ÜnivAtlas - Üniversite ve Bölüm Tercih Rehberi</title>
-<meta name="description" content="2026 YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.">
+<title>ÜnivAtlas YKS Tercih Robotu - Üniversite Tercih Rehberi</title>
+<meta name="description" content="2026 YKS tercih robotu: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online YKS tercih atlası.">
+<meta name="keywords" content="yks tercih robotu, yks tercih atlası, yks taban puanları, yks başarı sıralaması, yks kontenjanları, üniversite tercih, bölüm tercih, yks tercih rehberi, dgs tercih robotu, dikey geçiş">
 <meta property="og:title" content="ÜnivAtlas - 2026 YKS Tercih Rehberi">
-<meta property="og:description" content="Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.">
+<meta property="og:description" content="YKS tercih robotu: güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih atlası.">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -32,6 +33,10 @@ body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#404041;f
 .topbar-in{display:flex;align-items:center;gap:10px}
 .topbar-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}
 .topbar h1{font-family:'Quicksand',Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;letter-spacing:.8px;text-align:left;line-height:1.1;color:#404041}
+.topbar nav{margin-left:auto;display:flex;gap:8px}
+.topbar nav a{font-size:13px;font-weight:700;color:#880000;text-decoration:none;background:#fff;border:1px solid #e2c2c2;border-radius:8px;padding:4px 10px}
+.topbar nav a:hover{background:#fdf2f2}
+.topbar nav a.active{background:#d6454d;color:#fff;border-color:#d6454d}
 footer{text-align:center;padding:16px 8px;font-size:12px;color:#888;border-top:1px solid #e2e2e2;margin-top:20px}
 footer a{color:#d6454d;text-decoration:none}
 footer a:hover{text-decoration:underline}
@@ -132,11 +137,14 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
 .tl-cell{width:30px;padding:0 2px;text-align:center;vertical-align:middle}
 .tl-ck{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .tl-ck input{width:16px;height:16px;accent-color:#762516;cursor:pointer}
-.tl-arrows{display:flex;flex-direction:column;gap:1px;align-items:center}
-.tl-ar{width:24px;height:16px;border:1px solid #ccc;background:#fff;cursor:pointer;font-size:9px;line-height:1;padding:0;color:#333}
+.tl-arrows{display:flex;flex-direction:column;gap:2px;align-items:center;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+.tl-ar{width:28px;height:22px;border:1px solid #cbd5e1;background:#f8fafc;cursor:pointer;font-size:11px;line-height:1;padding:0;color:#334155;border-radius:6px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .tl-ar:hover:not(:disabled){background:#e8e8e8}
+.tl-ar:active:not(:disabled){background:#fee2e2;transform:scale(.94)}
 .tl-ar:disabled{opacity:.3;cursor:default}
-.tl-ar.tl-x{color:var(--red);font-weight:700}
+.tl-ar.tl-x{color:#dc2626;border-color:#fca5a5;background:#fef2f2;font-weight:700;font-size:13px}
+.tl-ar.tl-x:active{background:#fecaca}
+.drag-row{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .drag-row.dragging{opacity:.45}
 .drag-row.dragover{outline:2px dashed var(--red);outline-offset:-2px}
 .drawer-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:60}
@@ -234,8 +242,8 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   td.compact-hide:nth-child(10)::before{content:"TYÇ:";font-weight:700}
   body.compact-table td.compact-hide{display:none !important}
   /* Tercih listesi sürükle okları mobilde yatay - kompakt */
-  .tl-arrows{flex-direction:row;gap:3px}
-  .tl-ar{width:28px;height:24px;font-size:11px}
+  .tl-arrows{flex-direction:row;gap:8px}
+  .tl-ar{width:40px;height:36px;font-size:14px;border-radius:8px}
 }
 /* Mobilde eski tablo görünümü (toggle açıkken) */
 @media(max-width:768px){
@@ -277,8 +285,8 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
   body.mobile-table-view td.compact-hide:nth-child(8)::before, body.mobile-table-view td.compact-hide:nth-child(9)::before, body.mobile-table-view td.compact-hide:nth-child(10)::before{display:none}
   body.mobile-table-view .kosul-sub{display:none !important}
   body.mobile-table-view .kosul-main{display:inline;white-space:normal;overflow:visible;text-overflow:clip}
-  body.mobile-table-view .tl-arrows{flex-direction:column;gap:1px}
-  body.mobile-table-view .tl-ar{width:24px;height:16px;font-size:9px}
+  body.mobile-table-view .tl-arrows{flex-direction:column;gap:2px}
+  body.mobile-table-view .tl-ar{width:28px;height:22px;font-size:11px}
   body.mobile-table-view table{min-width:860px}
   body.compact-table.mobile-table-view table{min-width:0;width:100%}
   body.compact-table.mobile-table-view tbody td{white-space:normal}
@@ -308,7 +316,8 @@ td.l{text-align:left;padding-left:4px;overflow:hidden;white-space:normal}
 <div class="topbar">
   <div class="topbar-in">
     <img id="topLogo" class="topbar-logo" src="logo.png" alt="ÜnivAtlas" onerror="this.style.display='none'">
-    <h1>ÜnivAtlas</h1>
+    <h1>ÜnivAtlas YKS</h1>
+    <nav><a href="./" class="active">YKS</a><a href="dgs/">DGS</a></nav>
   </div>
 </div>
 
@@ -923,11 +932,51 @@ function moveTercih(code,dir){
   const a=tercih.slice();
   a.splice(idx,1);a.splice(ni,0,code);
   tercih=a;
-  syncUrl();renderTercih();
+  syncUrl();
+  const tb=document.getElementById('tb');
+  const rows=[...tb.querySelectorAll('tr')];
+  const rowA=rows[idx],rowB=rows[ni];
+  if(!rowA||!rowB){renderTercih();return;}
+  const tA=rowA.getBoundingClientRect().top,tB=rowB.getBoundingClientRect().top;
+  if(dir<0)tb.insertBefore(rowA,rowB);else tb.insertBefore(rowB,rowA);
+  flipTercihRows([[rowA,tA],[rowB,tB]]);
+  renumberTercihRows();
+}
+function flipTercihRows(pairs){
+  pairs.forEach(([r,old])=>{
+    if(!r||old==null)return;
+    const dy=old-r.getBoundingClientRect().top;
+    if(Math.abs(dy)>1){
+      r.style.transition='none';r.style.transform=`translateY(${dy}px)`;
+      requestAnimationFrame(()=>{requestAnimationFrame(()=>{r.style.transition='transform .28s ease';r.style.transform='';});});
+    }
+  });
+}
+function renumberTercihRows(){
+  const rows=[...document.getElementById('tb').querySelectorAll('tr')];
+  rows.forEach((tr,i)=>{
+    if(tr.children[1])tr.children[1].textContent=i+1;
+    const btns=tr.querySelectorAll('.tl-ar');
+    if(btns[0])btns[0].disabled=(i===0);
+    if(btns[1])btns[1].disabled=(i===rows.length-1);
+  });
 }
 function removeTercih(code){
   tercih=tercih.filter(k=>k!==code);
-  updateViewTabs();syncUrl();renderTercih();
+  updateViewTabs();syncUrl();
+  document.getElementById('infoBar').textContent='Tercih listesi: '+tercih.length+' program — tercih sırasına göre';
+  const tb=document.getElementById('tb');
+  const rows=[...tb.querySelectorAll('tr')];
+  const row=rows.find(r=>(r.getAttribute('onclick')||'').includes(`'${code}'`));
+  if(!row){renderTercih();return;}
+  const tops=rows.map(r=>r.getBoundingClientRect().top);
+  row.style.transition='opacity .18s ease';row.style.opacity='0';
+  setTimeout(()=>{
+    row.remove();
+    if(!tercih.length){renderTercih();return;}
+    flipTercihRows([...tb.querySelectorAll('tr')].map(r=>[r,tops[rows.indexOf(r)]]));
+    renumberTercihRows();
+  },180);
 }
 function dragStart(e,kod){dragFromKod=kod;try{e.dataTransfer.setData('text/plain','')}catch(_){}e.dataTransfer.effectAllowed='move';e.target.closest('tr').classList.add('dragging')}
 function dragOver(e){if(!dragFromKod)return;e.preventDefault();e.dataTransfer.dropEffect='move'}
@@ -941,7 +990,16 @@ function dragDrop(e,kod){
   const a=tercih.slice();
   a.splice(from,1);a.splice(to,0,tercih[from]);
   tercih=a;
-  syncUrl();renderTercih();
+  syncUrl();
+  const tb=document.getElementById('tb');
+  const rows=[...tb.querySelectorAll('tr')];
+  const tops=rows.map(r=>r.getBoundingClientRect().top);
+  const moving=rows[from];
+  if(!moving){renderTercih();return;}
+  const rest=rows.filter(r=>r!==moving);
+  tb.insertBefore(moving,rest[to]||null);
+  flipTercihRows(rows.map((r,i)=>[r,tops[i]]));
+  renumberTercihRows();
 }
 
 let tRenderId=0;
@@ -973,7 +1031,7 @@ async function renderTercih(){
     const code=String(p.kilavuzKodu||p.k);
     return`<tr class="drag-row ${cardCls(p.universiteTuru)}" draggable="true" ondragstart="dragStart(event,'${code}')" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="dragDrop(event,'${code}')" onclick="openDraw('${code}')">
       <td class="tl-cell" onclick="event.stopPropagation()">
-        <div class="tl-arrows">
+        <div class="tl-arrows" oncontextmenu="event.preventDefault();event.stopPropagation()">
           <button class="tl-ar" onclick="moveTercih('${code}',-1)" ${i===0?'disabled':''} title="Yukarı taşı">▲</button>
           <button class="tl-ar" onclick="moveTercih('${code}',1)" ${i===rows.length-1?'disabled':''} title="Aşağı taşı">▼</button>
           <button class="tl-ar tl-x" onclick="removeTercih('${code}')" title="Listeden çıkar">&times;</button>
@@ -1045,7 +1103,10 @@ async function openDraw(kod){
     <div style="font-size:11px;margin-top:2px">Akreditasyon: <b>${p.akreditasyon||'Yok'}</b> • TYÇ: <b>${p.tyc?'Var':'Yok'}</b></div>
     ${urapLine}
     ${theLine}
-    <button onclick="openMaps('${(p.universiteAdi||'').replace(/'/g,"\\'")}','${(p.fymkAdi||'').replace(/'/g,"\\'")}')" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${mapsLabel(p.fymkAdi)}</button>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+    <button onclick="openMaps('${(p.universiteAdi||'').replace(/'/g,"\\'")}')" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Haritalarda Ara</button>
+    <button onclick="openMaps('${(p.universiteAdi||'').replace(/'/g,"\\'")}','${(p.fymkAdi||'').replace(/'/g,"\\'")}')" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${mapsLabel(p.fymkAdi)}</button>
+    </div>
      <h3>Kontenjan & Yerleşen</h3>
     ${DY.map(y=>{const s=p.yearly?.[String(y)];const noData=!s||((s.kn==null||s.kn==='')&&(s.yl==null||s.yl===''));if(noData)return`<div class="kv"><b>${y}-YKS</b><span style="color:#0ea5e9">Veri yok</span></div>`;const k=s.kn!=null&&s.kn!==''?F(s.kn):'-';const yl=s.yl!=null&&s.yl!==''?` Yerleşen: ${F(s.yl)}`:'';return`<div class="kv"><b>${y}-YKS</b><span>Kont: ${k}${yl}</span></div>`}).join('')}
      <h3>Taban Puan & Sıralama</h3>
@@ -1078,10 +1139,10 @@ function closeDraw(){
   document.getElementById('dmask').classList.remove('open');
   document.title='ÜnivAtlas';
   const _y=window.YOK_ATLAS_DATA.lastFetchYear;
-  const def=_y+' YKS tercih rehberi: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online tercih aracı.';
+  const def=_y+' YKS tercih robotu: Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. 4 yıllık lisans ve 2 yıllık önlisans programları karşılaştırın. Ücretsiz, online YKS tercih atlası.';
   const m=document.querySelector('meta[name="description"]');if(m)m.content=def;
   const o=document.querySelector('meta[property="og:title"]');if(o)o.content='ÜnivAtlas - '+_y+' YKS Tercih Rehberi';
-  const d=document.querySelector('meta[property="og:description"]');if(d)d.content='Üniversite ve bölüm bazlı güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih aracı.';
+  const d=document.querySelector('meta[property="og:description"]');if(d)d.content='YKS tercih robotu: güncel başarı sıralamaları, kontenjan bilgileri, taban puanlar. Ücretsiz, online tercih atlası.';
   if(deepLinkKod){deepLinkKod='';syncUrl()}
 }
 function copyKod(kod,btn){
@@ -1106,11 +1167,11 @@ function mapsLabel(fakulte){
 }
 function openMaps(uni,fakulte){
   const cleanUni=uni.replace(/\s*\([^)]*\)\s*/g,' ').trim();
-  const q=trTitleCase(cleanUni+' '+fakulte);
+  const q=trTitleCase(fakulte?cleanUni+' '+fakulte:cleanUni);
   window.open('https://www.google.com/maps/search/'+encodeURIComponent(q),'_blank');
 }
 if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('sw.js', document.baseURI)).then(reg => {
-  reg.active?.postMessage({ type:'YOK_ATLAS_DATA_VERSION', version:window.YOK_ATLAS_DATA.version });
+  reg.active?.postMessage({ type:'YOK_ATLAS_DATA_VERSION', version:window.YOK_ATLAS_DATA.version, dataset:'yks' });
 });
 window.addEventListener('popstate',()=>{
   if(!C.length)return;
@@ -1122,7 +1183,8 @@ init();
 </script>
 
 <footer>
-  <a href="privacy.html">Gizlilik Politikası</a> · ÜnivAtlas
+  <div style="max-width:760px;margin:0 auto 10px;font-size:11px;line-height:1.6;color:#888">ÜnivAtlas YKS tercih robotu; üniversite ve bölüm bazlı güncel başarı sıralamaları, taban puanlar ve kontenjanlarla tercih listesi oluşturmayı kolaylaştırır. Ücretsiz kullanılan online YKS tercih atlasıdır.</div>
+  <a href="privacy.html">Gizlilik Politikası</a> · <a href="dgs/">ÜnivAtlas DGS</a> · ÜnivAtlas YKS
 </footer>
 
 </body>
