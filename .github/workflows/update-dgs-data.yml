@@ -11,6 +11,8 @@ permissions:
 jobs:
   fetch-build:
     runs-on: ubuntu-latest
+    env:
+      ALL_PROGRAMS: '0'
     steps:
       - uses: actions/checkout@v4
 
