@@ -67,10 +67,29 @@ for (let i = 0; i < details.length; i++) {
 fs.writeFileSync(path.join(out, 'config.js'), `window.YOK_ATLAS_DATA=${JSON.stringify({ version, catalog, totalPrograms: source.length, lastFetchYear: meta.lastFetchYear })};\n`);
 
 const siteUrl = 'https://univatlas.github.io';
+// ALL_PROGRAMS=0 ise sadece temel sayfalar (/ , /dgs/, /privacy.html) eklenir,
+// program linkleri eklenmez. Varsayilan: 1 (tam sitemap).
+const ALL_PROGRAMS = process.env.ALL_PROGRAMS !== '0';
+let dgsLinks = '';
+if (ALL_PROGRAMS) {
+  try {
+    const dgsDir = path.join(root, 'data', 'dgs', 'static');
+    const dgsCat = fs.readdirSync(dgsDir).filter(f => /^catalog-.*\.json$/.test(f)).sort().pop();
+    if (dgsCat) {
+      const dgs = JSON.parse(fs.readFileSync(path.join(dgsDir, dgsCat), 'utf8'));
+      dgsLinks = '\n' + dgs.r.map(row => `<url><loc>${siteUrl}/dgs/?programkodu=${encodeURIComponent(row[0])}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>`).join('\n');
+    }
+  } catch (e) { /* DGS verisi yoksa atla */ }
+}
+const baseUrls = `<url><loc>${siteUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>${siteUrl}/dgs/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+<url><loc>${siteUrl}/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>`;
+const yksLinks = ALL_PROGRAMS
+  ? '\n' + source.map(p => `<url><loc>${siteUrl}/?programkodu=${encodeURIComponent(p.k)}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>`).join('\n')
+  : '';
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>${siteUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-${source.map(p => `<url><loc>${siteUrl}/?programkodu=${encodeURIComponent(p.k)}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>`).join('\n')}
+${baseUrls}${yksLinks}${dgsLinks}
 </urlset>`;
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml);
 
