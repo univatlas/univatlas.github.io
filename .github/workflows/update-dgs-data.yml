@@ -12,7 +12,7 @@ jobs:
   fetch-build:
     runs-on: ubuntu-latest
     env:
-      ALL_PROGRAMS: '1'
+      ALL_PROGRAMS: '0'
     steps:
       - uses: actions/checkout@v4
 
@@ -38,4 +38,5 @@ jobs:
           git add -A data/dgs/static/
           git add -f dgs/index.html dgs.html sitemap.xml
           git diff --cached --quiet || git commit -m "Update DGS data: $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
           git push

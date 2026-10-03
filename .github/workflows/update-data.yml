@@ -14,7 +14,7 @@ jobs:
   fetch-build-deploy:
     runs-on: ubuntu-latest
     env:
-      ALL_PROGRAMS: '1'
+      ALL_PROGRAMS: '0'
     steps:
       - uses: actions/checkout@v4
 
@@ -55,4 +55,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f data/static/ data/urap/ data/the/ sitemap.xml index.html static.js
           git diff --cached --quiet || git commit -m "Veri guncellendi: $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
           git push
