@@ -150,10 +150,13 @@ def main():
     m = build_matcher(yok)
 
     year = a.year or datetime.date.today().year
-    raw = fetch_year(year)
-    if raw is None and a.year is None:
-        year -= 1
-        raw = fetch_year(year)
+    candidates = [a.year] if a.year else [year + 1, year, year - 1]
+    raw = None
+    for cand in candidates:
+        raw = fetch_year(cand)
+        if raw is not None:
+            year = cand
+            break
     if raw is None:
         raise SystemExit("Could not fetch THE data.")
 

@@ -106,7 +106,9 @@ def update_sitemap(codes):
         with open(p, encoding="utf-8") as f:
             s = f.read()
     except OSError:
-        return
+        s = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+             '</urlset>')
     lines = [l for l in s.split("\n") if "/dgs/?programkodu=" not in l]
     s = "\n".join(lines)
     if "/dgs/</loc>" not in s and "/dgs/" not in s:
