@@ -14,7 +14,7 @@ jobs:
   fetch-build-deploy:
     runs-on: ubuntu-latest
     env:
-      ALL_PROGRAMS: '0'
+      ALL_PROGRAMS: '1'
     steps:
       - uses: actions/checkout@v4
 
